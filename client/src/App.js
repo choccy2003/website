@@ -12,7 +12,7 @@ function App() {
   var [best_array, setarray] = useState([])
 const fetchData = async () => {
     try {
-      const response = await fetch('http://localhost:3001/');
+      const response = await fetch('http://192.168.1.6:3001/');
       const jsonData = await response.json();
       setarray(jsonData);
     } catch (error) {
@@ -185,7 +185,7 @@ const fetchData = async () => {
 
         <Routes>
           <Route exact path='/' element={<Itemgrid best_array={best_array} title={"Best sellers"} inc={inc} appendfn={appendfn} cart_array={cart_array} dec={dec} />} />
-          <Route exact path='/products/:id' element={<Itempage best_array={best_array} appendfn={appendfn} />} />
+          <Route exact path='/products/:id' element={<Itempage best_array={best_array} appendfn={appendfn} setarray={setarray} />} />
 
         </Routes>
 

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState,useEffect } from 'react'
 import Starrating from 'react-star-ratings'
 import "../styles/itempage.css"
 import { useParams } from 'react-router-dom'
@@ -19,6 +19,7 @@ const Itempage = (props) => {
   const [activeques,updateques]=useState(false);
   let { id } = useParams()
   const number = props.best_array[id].price;
+
   const dispfunc = () => {
     if (displaylist === true) {
       updatedisplay(false)
@@ -72,8 +73,23 @@ const Itempage = (props) => {
     
     
   }
-  
+  const fetchdata = async () => {
+    try {
+      const response = await fetch('http://192.168.1.6:3001/');
+      const jsonData = await response.json();
+      props.setarray(jsonData);
+    } catch (error) {
+      console.log('Error:', error);
+    }
+  };
 
+  useEffect(()=>{
+   fetchdata()
+  },[])
+  
+  if(props.best_array.length===0){
+    return <div>Page not loaded</div>
+  }
   if (props.best_array.length >= id) {
     return (
       <div>
