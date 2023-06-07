@@ -9,21 +9,23 @@ import { RxCross2 } from 'react-icons/rx'
 import { CiFaceFrown } from 'react-icons/ci'
 
 function App() {
+  console.log("APP.js")
   var [best_array, setarray] = useState([])
-  const fetchData = async () => {
+const fetchData = async () => {
     try {
       const response = await fetch('http://localhost:3001/');
       const jsonData = await response.json();
+      console.log(jsonData)
       setarray(jsonData);
     } catch (error) {
       console.log('Error:', error);
     }
   };
 
-  useEffect(() => {
-    fetchData()
-  }, [])
-
+  useEffect(()=>{
+   fetchData()
+  },[])
+  
   const inc = (index) => {
     let newproduct_array = [...best_array]
     newproduct_array[index].quantity++
@@ -36,8 +38,6 @@ function App() {
       newproduct_array[index].quantity--
 
     }
-
-
 
     setarray(newproduct_array)
 
@@ -138,8 +138,6 @@ function App() {
         <span style={{ fontSize: "24px" }}>
           Grand Total: <div style={{ display: "inline-block", textAlign: "right", width: "63%" }}>{number3.toLocaleString('en-in')}</div>
         </span>
-
-
       </>
     )
 
