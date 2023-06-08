@@ -21,7 +21,10 @@ const fetchData = async () => {
   };
 
   useEffect(()=>{
-   fetchData()
+    (async ()=>{
+     await fetchData()
+    })()
+   
   },[])
   
   const inc = (index) => {

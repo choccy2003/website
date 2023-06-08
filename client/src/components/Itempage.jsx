@@ -18,7 +18,6 @@ const Itempage = (props) => {
   const [activerev,updaterev]=useState(false);
   const [activeques,updateques]=useState(false);
   let { id } = useParams()
-  const number = props.best_array[id].price;
 
   const dispfunc = () => {
     if (displaylist === true) {
@@ -73,23 +72,8 @@ const Itempage = (props) => {
     
     
   }
-  const fetchdata = async () => {
-    try {
-      const response = await fetch('http://192.168.1.6:3001/');
-      const jsonData = await response.json();
-      props.setarray(jsonData);
-    } catch (error) {
-      console.log('Error:', error);
-    }
-  };
 
-  useEffect(()=>{
-   fetchdata()
-  },[])
   
-  if(props.best_array.length===0){
-    return <div>Page not loaded</div>
-  }
   if (props.best_array.length >= id) {
     return (
       <div>
@@ -132,7 +116,7 @@ const Itempage = (props) => {
 
               </div>
               <div className='btn-grid2'>
-                <div className='prod-price'><span style={{ fontFamily: "sans-serif" }}>₹&nbsp;</span>{number.toLocaleString('en-IN')}</div>
+                <div className='prod-price'><span style={{ fontFamily: "sans-serif" }}>₹&nbsp;</span>{props.best_array[id].price.toLocaleString('en-IN')}</div>
                 <div className='sizebox'>
                   <div className='size-btn'>
                     <div style={{ height: "20px", width: "26px" }}>{props.best_array[id].size}</div>
