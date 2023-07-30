@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Navbar from "./components/Navbar";
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import Itemgrid from "./components/Itemgrid"
@@ -6,14 +6,14 @@ import Itempage from "./components/Itempage"
 import './styles/navcss.css'
 import Cartcard from "./small components/Cartcard";
 import { RxCross2 } from 'react-icons/rx'
-import {CiFaceFrown} from 'react-icons/ci'
+import { CiFaceFrown } from 'react-icons/ci'
 import Filtergrid from "./components/Filtergrid";
 
 function App() {
   var [best_array, setarray] = useState([])
-const fetchData = async () => {
+  const fetchData = async () => {
     try {
-      const response = await fetch('http://192.168.1.6:3001/');
+      const response = await fetch('http://localhost:3001/');
       const jsonData = await response.json();
       setarray(jsonData);
     } catch (error) {
@@ -21,13 +21,13 @@ const fetchData = async () => {
     }
   };
 
-  useEffect(()=>{
-    (async ()=>{
-     await fetchData()
+  useEffect(() => {
+    (async () => {
+      await fetchData()
     })()
-   
-  },[])
-  
+
+  }, [])
+
   const inc = (index) => {
     let newproduct_array = [...best_array]
     newproduct_array[index].quantity++
@@ -119,7 +119,7 @@ const fetchData = async () => {
   let cartpricefn = () => {
     let number = 0, number2 = 0, number3 = 0;
     if (cart_array.length > 0) {
-      
+
 
       for (let x of cart_array) {
 
@@ -148,15 +148,15 @@ const fetchData = async () => {
     )
 
   }
-    useEffect(() => {
-      if (cart_array.length > 0) {
-        updatecartdisplay(true);
-      } else {
-        updatecartdisplay(false);
-      }
-    }, [cart_array]);
+  useEffect(() => {
+    if (cart_array.length > 0) {
+      updatecartdisplay(true);
+    } else {
+      updatecartdisplay(false);
+    }
+  }, [cart_array]);
 
-  
+
 
   return (
     <div>
@@ -172,8 +172,8 @@ const fetchData = async () => {
           })
 
           }
-          {displaycart&&(<div style={{ fontFamily: "Poppins", fontSize: "20px", marginLeft: "10px", marginTop: "30px" }}>{cartpricefn()}</div>)}
-          {!displaycart&&(<div style={{opacity:"0.5"}}><CiFaceFrown style={{height:"100px",width:"100px",position:"relative",top:"120px",left:"200px"}}/><div style={{position:"relative",top:"150px",left:"90px",fontSize:"30px",fontFamily:"Poppins"}}>Cart is currently empty</div></div>)}
+          {displaycart && (<div style={{ fontFamily: "Poppins", fontSize: "20px", marginLeft: "10px", marginTop: "30px" }}>{cartpricefn()}</div>)}
+          {!displaycart && (<div style={{ opacity: "0.5" }}><CiFaceFrown style={{ height: "100px", width: "100px", position: "relative", top: "120px", left: "200px" }} /><div style={{ position: "relative", top: "150px", left: "90px", fontSize: "30px", fontFamily: "Poppins" }}>Cart is currently empty</div></div>)}
 
 
         </div>
@@ -186,10 +186,10 @@ const fetchData = async () => {
           <div className="user-list">About us</div>
 
         </div>
-        <Filtergrid />
+
 
         <Routes>
-          <Route exact path='/' element={<Itemgrid best_array={best_array} title={"Best sellers"} inc={inc} appendfn={appendfn} cart_array={cart_array} dec={dec} />} />
+          <Route exact path='/' element={<Itemgrid setarray={setarray} fetchData={fetchData} best_array={best_array} title={"Best sellers"} inc={inc} appendfn={appendfn} cart_array={cart_array} dec={dec} />} />
           <Route exact path='/products/:id' element={<Itempage best_array={best_array} appendfn={appendfn} setarray={setarray} />} />
 
         </Routes>

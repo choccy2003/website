@@ -156,12 +156,13 @@ html {
     top: 1px
 }
 
-.user-icon:hover{
-fill:rgb(113, 113, 113)
+.user-icon:hover {
+    fill: rgb(113, 113, 113)
 }
-.cart-icon:hover{
-    fill:rgb(113, 113, 113)
-    }
+
+.cart-icon:hover {
+    fill: rgb(113, 113, 113)
+}
 
 .interface {
     position: relative;
@@ -169,7 +170,7 @@ fill:rgb(113, 113, 113)
     right: 10px;
     display: flex;
     gap: 25px;
-    
+
 }
 
 .nav-menu {
@@ -209,8 +210,8 @@ fill:rgb(113, 113, 113)
     position: relative;
     margin-left: 4px;
     bottom: 1px;
-    
-    
+
+
 }
 
 .hidden-btn {
@@ -306,6 +307,7 @@ fill:rgb(113, 113, 113)
     top: 6px;
     display: inline-block;
 }
+
 .cart-menu {
     height: 800px;
     width: 500px;
@@ -314,31 +316,32 @@ fill:rgb(113, 113, 113)
     left: calc(100% - 500px);
     position: absolute;
     overflow-y: scroll;
-  }
-  
-  .cart-menu::-webkit-scrollbar {
-    width: 7px;
-  }
-  
-  .cart-menu::-webkit-scrollbar-track {
-    border-radius: 10px;
-  }
-  
-  .cart-menu::-webkit-scrollbar-thumb {
-    background: #d9d9d9;
-    border-radius: 10px;
-  }
-  
-  .cart-menu::-webkit-scrollbar-thumb:hover {
-    background: #cdcdcd;
-  }
-.cbtn{
-    height: 25px;
-    width: 25px;
-    
 }
 
-.cart-card{
+.cart-menu::-webkit-scrollbar {
+    width: 7px;
+}
+
+.cart-menu::-webkit-scrollbar-track {
+    border-radius: 10px;
+}
+
+.cart-menu::-webkit-scrollbar-thumb {
+    background: #d9d9d9;
+    border-radius: 10px;
+}
+
+.cart-menu::-webkit-scrollbar-thumb:hover {
+    background: #cdcdcd;
+}
+
+.cbtn {
+    height: 25px;
+    width: 25px;
+
+}
+
+.cart-card {
     height: 130px;
     width: 450px;
     margin-left: 25px;
@@ -347,34 +350,39 @@ fill:rgb(113, 113, 113)
     border: 1px solid rgb(166, 163, 163);
     background-color: #f3f3f3;
 }
-.cart-img{
+
+.cart-img {
     height: 100px;
     width: 100px;
     margin-top: 15px;
     margin-left: 15px;
     border-radius: 5px;
-    background-color:#e4e4e4;
+    background-color: #e4e4e4;
 
 }
-.cart-animation{
-        animation-name: cart;
+
+.cart-animation {
+    animation-name: cart;
     animation-duration: 500ms;
 }
-.user-list{
+
+.user-list {
     height: 60px;
     padding-top: 25px;
     padding-left: 25px;
     font-weight: 100;
     font-size: 22px;
     font-family: 'Poppins';
-    border-bottom: 1px solid rgb(0, 0, 0,0.4);
-    
+    border-bottom: 1px solid rgb(0, 0, 0, 0.4);
+
 }
-.user-list:hover{
+
+.user-list:hover {
     opacity: 0.6;
     user-select: none;
 }
-.regheart:hover{
+
+.regheart:hover {
     fill: #AB2328;
 }
 
@@ -387,6 +395,14 @@ fill:rgb(113, 113, 113)
     100% {
         left: calc(100% - 500px);
     }
+}
+
+.li:hover {
+    background-color: #D1D1D1;
+}
+
+input:focus {
+    outline: none;
 }
 
 
