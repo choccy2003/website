@@ -7,6 +7,7 @@ import './styles/navcss.css'
 import Cartcard from "./small components/Cartcard";
 import { RxCross2 } from 'react-icons/rx'
 import {CiFaceFrown} from 'react-icons/ci'
+import Filtergrid from "./components/Filtergrid";
 
 function App() {
   var [best_array, setarray] = useState([])
@@ -185,6 +186,7 @@ const fetchData = async () => {
           <div className="user-list">About us</div>
 
         </div>
+        <Filtergrid />
 
         <Routes>
           <Route exact path='/' element={<Itemgrid best_array={best_array} title={"Best sellers"} inc={inc} appendfn={appendfn} cart_array={cart_array} dec={dec} />} />

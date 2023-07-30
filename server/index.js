@@ -16,7 +16,7 @@ app.get('/', function (req, res) {
         rating: 4,
         review: 66,
         id: 0,
-        size: "Size"
+        size: "Size",
       }, {
         name: "Shirt",
         price: 1500,
@@ -24,7 +24,7 @@ app.get('/', function (req, res) {
         rating: 5,
         review: 14,
         id: 1,
-        size: "Size"
+        size: "Size",
       }, {
         name: "Jeans",
         price: 4000,
@@ -32,7 +32,7 @@ app.get('/', function (req, res) {
         rating: 3,
         review: 116,
         id: 2,
-        size: "Size"
+        size: "Size",
       }, {
         name: "Jacket",
         price: 10000,
@@ -40,7 +40,7 @@ app.get('/', function (req, res) {
         rating: 4,
         review: 83,
         id: 3,
-        size: "Size"
+        size: "Size",
       }, {
         name: "Shoes",
         price: 4000,
@@ -48,7 +48,7 @@ app.get('/', function (req, res) {
         rating: 4,
         review: 26,
         id: 4,
-        size: "Size"
+        size: "Size",
       }, {
         name: "Shoes",
         price: 4000,
@@ -56,7 +56,7 @@ app.get('/', function (req, res) {
         rating: 5,
         review: 59,
         id: 5,
-        size: "Size"
+        size: "Size",
       }, {
         name: "Shoes",
         price: 4000,
@@ -64,7 +64,7 @@ app.get('/', function (req, res) {
         rating: 2,
         review: 36,
         id: 6,
-        size: "Size"
+        size: "Size",
       }, {
         name: "Shoes",
         price: 4000,
@@ -72,15 +72,15 @@ app.get('/', function (req, res) {
         rating: 5,
         review: 16,
         id: 7,
-        size: "Size"
+        size: "Size",
       }, {
         name: "Shoes",
         price: 4000,
         quantity: 0,
-        rating: 1,
+        rating: 2,
         review: 56,
         id: 8,
-        size: "Size"
+        size: "Size",
       }]
       res.json(file1);  
   });  

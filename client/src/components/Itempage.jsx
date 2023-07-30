@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from 'react'
+import React, { useState} from 'react'
 import Starrating from 'react-star-ratings'
 import "../styles/itempage.css"
 import { useParams } from 'react-router-dom'
@@ -6,6 +6,7 @@ import { FiChevronDown } from 'react-icons/fi'
 import { FaRegHeart,FaUserCircle } from 'react-icons/fa'
 import { GrFormAdd } from 'react-icons/gr'
 import Check from '../small components/Check'
+import shoes1 from '../images/shoes1.jpeg'
 
 const Itempage = (props) => {
   const [displaylist, updatedisplay] = useState(false);
@@ -79,9 +80,9 @@ const Itempage = (props) => {
       <div>
         <div className='product-page'>
           <div className='img-grid'>
-            <div className='product-img'></div>
-            <div className='product-img'></div>
-            <div className='product-img'></div>
+            <div className='product-img'><img src={shoes1} style={{width:"100%",height:"auto"}} alt='o'></img></div>
+            <div className='product-img' ><img src={shoes1} style={{width:"100%",height:"auto"}} alt='o'></img></div>
+            <div className='product-img'><img src={shoes1} style={{width:"100%",height:"auto"}} alt='o'></img></div>
           </div>
           <div className='info-grid'>
 
