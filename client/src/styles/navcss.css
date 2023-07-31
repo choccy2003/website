@@ -377,6 +377,19 @@ html {
 
 }
 
+.login-link:visited {
+    color: black;
+}
+
+.login-link:active {
+    color: black;
+}
+
+.login-link:link {
+    color: black;
+}
+
+
 .user-list:hover {
     opacity: 0.6;
     user-select: none;

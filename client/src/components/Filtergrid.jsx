@@ -43,7 +43,7 @@ const Filtergrid = (props) => {
           <input placeholder='Search...' type='text' style={{ height: "18px", fontSize: "18px", width: "120px", backgroundColor: "#f5f5f5", border: "none" }} ></input>
         </div>
         <div style={{ marginLeft: "auto", marginTop: "1px", fontSize: "20px" }}>
-          <BsSearch />
+          <BsSearch opacity={0.6} />
         </div>
 
       </div>

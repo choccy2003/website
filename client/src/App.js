@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
 import Navbar from "./components/Navbar";
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom'
 import Itemgrid from "./components/Itemgrid"
 import Itempage from "./components/Itempage"
 import './styles/navcss.css'
 import Cartcard from "./small components/Cartcard";
 import { RxCross2 } from 'react-icons/rx'
 import { CiFaceFrown } from 'react-icons/ci'
-import Filtergrid from "./components/Filtergrid";
+import Login from "./components/Login";
+
 
 function App() {
   var [best_array, setarray] = useState([])
@@ -87,7 +88,7 @@ function App() {
       updatecartarr(prevCart => [...prevCart, newItem]);
     }
   };
-
+  const [loginpage, setloginpage] = useState(false)
 
   const carttotal = () => {
     let i = 0
@@ -162,9 +163,17 @@ function App() {
     <div>
 
       <Router>
-        <Navbar dispfn={dispfn} dispfn2={dispfn2} carttotal={carttotal} />
+        {!loginpage && (
+          <Navbar dispfn={dispfn} dispfn2={dispfn2} carttotal={carttotal} />
 
-        <div className='nav-menu'><div>Dropdown</div><div>Dropdown</div><div>Dropdown</div><div>Dropdown</div><div>Dropdown</div><div>Dropdown</div><div>Dropdown</div><div>Dropdown</div><div>Dropdown</div></div>
+
+        )}
+        {!loginpage && (
+          <div className='nav-menu'><div>Dropdown</div><div>Dropdown</div><div>Dropdown</div><div>Dropdown</div><div>Dropdown</div><div>Dropdown</div><div>Dropdown</div><div>Dropdown</div><div>Dropdown</div></div>
+        )}
+
+
+
         <div className={`cart-menu ${displayani ? "cart-animation" : "inv"}`}>
           <div style={{ fontFamily: "Poppins", fontSize: "28px", marginLeft: "22px", marginTop: "15px", marginBottom: "-15px", display: "flex" }}><div>Your Cart</div><RxCross2 onClick={dispfn} style={{ marginLeft: "auto", position: "relative", right: "15px", top: "7px" }} />  </div>
           {cart_array.map((cart_array, i) => {
@@ -179,7 +188,7 @@ function App() {
         </div>
         <div style={{ height: "703px" }} className={`cart-menu ${displayani2 ? "cart-animation" : "inv"}`}>
           <div style={{ fontFamily: "Poppins", fontSize: "28px", marginLeft: "22px", marginTop: "25px", marginBottom: "35px", display: "flex" }}><div>Welcome! User</div><RxCross2 onClick={dispfn2} style={{ marginLeft: "auto", position: "relative", right: "15px", top: "7px" }} />  </div>
-          <div className="user-list" style={{ borderTop: "1px solid rgb(0, 0, 0,0.4)" }}>Account</div><div className="user-list">Wishlist</div><div className="user-list">Your orders</div>
+          <div className="user-list" style={{ borderTop: "1px solid rgb(0, 0, 0,0.4)" }} ><Link className="login-link" to={'/login'} style={{ textDecoration: "none" }}>Login</Link></div><div className="user-list">Account</div><div className="user-list">Wishlist</div><div className="user-list">Your orders</div>
           <div className="user-list">Track orders</div>
           <div className="user-list">Refund and returns</div><div className="user-list">Privacy policy</div>
           <div className="user-list">FAQ</div>
@@ -191,7 +200,7 @@ function App() {
         <Routes>
           <Route exact path='/' element={<Itemgrid setarray={setarray} fetchData={fetchData} best_array={best_array} title={"Best sellers"} inc={inc} appendfn={appendfn} cart_array={cart_array} dec={dec} />} />
           <Route exact path='/products/:id' element={<Itempage best_array={best_array} appendfn={appendfn} setarray={setarray} />} />
-
+          <Route exact path='/login' element={<Login />}></Route>
         </Routes>
 
       </Router>

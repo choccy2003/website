@@ -38,13 +38,15 @@ const Itemcard = (props) => {
     
   */
   const number = props.best_array.price;
+  { console.log() }
   return (
     <div>
 
       <div className='container'>
+
         <div className='card'>
           <Link to={`/products/${props.best_array.id}`}>
-            <div className='image'></div>
+            <div className='image'><img src={props.best_array.image[0]} style={{ height: "180x", width: "210px", marginTop: "10px" }} ></img></div>
           </Link>
           <div className='title'>{props.best_array.name}</div>
           <div className='des'>Item description here</div>
