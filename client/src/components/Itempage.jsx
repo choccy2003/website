@@ -75,15 +75,20 @@ const Itempage = (props) => {
 
   }
 
+  const [dataFetched, setDataFetched] = useState(false);
+
   useEffect(() => {
     // Fetch the data here if it's not already available in props.best_array
-
     (async () => {
-      await props.fetchData()
-    })()
-
+      await props.fetchData();
+      setDataFetched(true); // Set dataFetched to true after data has been fetched
+    })();
   }, []);
   { console.log(props.best_array) }
+  if (!dataFetched) {
+    // Show a loading spinner or any other loading UI
+    return <div>Loading...</div>;
+  }
   if (props.best_array.length >= id) {
     return (
       <div>
