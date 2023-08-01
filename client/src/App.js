@@ -75,7 +75,7 @@ function App() {
   }
   const appendfn = (val) => {
     const existingItemIndex = cart_array.findIndex(
-      item => item.name === val.name && item.size === val.size
+      item => item.name === val.name && item.size === val.size && val.id === item.id
     );
 
     if (existingItemIndex !== -1) {
@@ -84,8 +84,9 @@ function App() {
       updatedCart[existingItemIndex].quantity += Number(val.quantity);
       updatecartarr(updatedCart);
     } else {
-      const newItem = { ...val, quantity: Number(val.quantity), id: cart_array.length + 1 };
+      const newItem = { ...val, quantity: Number(val.quantity) };
       updatecartarr(prevCart => [...prevCart, newItem]);
+      console.log(cart_array)
     }
   };
   const [loginpage, setloginpage] = useState(false)
@@ -134,6 +135,7 @@ function App() {
 
     return (
       <>
+
         Subtotal: <div style={{ display: "inline-block", textAlign: "right", width: "75%" }}>{number.toLocaleString('en-in')}</div>
         <br />
         <span style={{ fontSize: "18px", opacity: "0.6" }}>
@@ -199,7 +201,7 @@ function App() {
 
         <Routes>
           <Route exact path='/' element={<Itemgrid setarray={setarray} fetchData={fetchData} best_array={best_array} title={"Best sellers"} inc={inc} appendfn={appendfn} cart_array={cart_array} dec={dec} />} />
-          <Route exact path='/products/:id' element={<Itempage best_array={best_array} appendfn={appendfn} setarray={setarray} />} />
+          <Route exact path='/products/:id' element={<Itempage fetchData={fetchData} best_array={best_array} appendfn={appendfn} setarray={setarray} />} />
           <Route exact path='/login' element={<Login />}></Route>
         </Routes>
 

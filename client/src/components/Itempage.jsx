@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Starrating from 'react-star-ratings'
 import "../styles/itempage.css"
 import { useParams } from 'react-router-dom'
@@ -7,7 +7,7 @@ import { FaRegHeart, FaUserCircle } from 'react-icons/fa'
 import { GrFormAdd } from 'react-icons/gr'
 import Check from '../small components/Check'
 
-import '../images/jeansa1.png'
+
 
 const Itempage = (props) => {
   const [displaylist, updatedisplay] = useState(false);
@@ -75,13 +75,21 @@ const Itempage = (props) => {
 
   }
 
+  useEffect(() => {
+    // Fetch the data here if it's not already available in props.best_array
 
+    (async () => {
+      await props.fetchData()
+    })()
+
+  }, []);
+  { console.log(props.best_array) }
   if (props.best_array.length >= id) {
     return (
       <div>
         <div className='product-page'>
           <div className='img-grid'>
-            {console.log(props.best_array[id].image[0])}
+
             <div className='product-img'><img src={props.best_array[id].image[0]} style={{ width: "100%", height: "auto" }} alt='o'></img></div>
             <div className='product-img' ><img src={props.best_array[id].image[1]} style={{ width: "100%", height: "auto" }} alt='o'></img></div>
             <div className='product-img'><img src={props.best_array[id].image[2]} style={{ width: "100%", height: "auto" }} alt='o'></img></div>
