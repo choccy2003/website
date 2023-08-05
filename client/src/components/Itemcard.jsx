@@ -45,7 +45,7 @@ const Itemcard = (props) => {
       <div className='container'>
 
         <div className='card'>
-          <Link to={`/products/${props.best_array.id}`}>{console.log(props.best_array)}
+          <Link to={`/products/${props.best_array.id}`}>
             <div className='image'><img src={props.best_array.image[0]} style={{ height: "180x", width: "210px", marginTop: "10px" }} ></img></div>
           </Link>
           <div className='title'>{props.best_array.name}</div>
