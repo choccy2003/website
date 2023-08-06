@@ -35,7 +35,7 @@ const Filtergrid = (props) => {
     props.fetchData();
     setSelectedOption('Relevance');
   };
-  { console.log(props.best_array) }
+ 
 
   return (
     <div style={{ display: "flex", height: "50px", gap: "20px" }}>

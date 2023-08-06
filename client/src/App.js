@@ -8,13 +8,13 @@ import Cartcard from "./small components/Cartcard";
 import { RxCross2 } from 'react-icons/rx'
 import { CiFaceFrown } from 'react-icons/ci'
 import Login from "./components/Login";
-
+import Signup from "./components/Signup"
 
 function App() {
   var [best_array, setarray] = useState([])
   const fetchData = async () => {
     try {
-      const response = await fetch('http://localhost:3001/');
+      const response = await fetch('http://localhost:3001/users/listproducts');
       const jsonData = await response.json();
       setarray(jsonData);
     } catch (error) {
@@ -86,10 +86,10 @@ function App() {
     } else {
       const newItem = { ...val, quantity: Number(val.quantity) };
       updatecartarr(prevCart => [...prevCart, newItem]);
-      console.log(cart_array)
+     
     }
   };
-  const [loginpage, setloginpage] = useState(false)
+
 
   const carttotal = () => {
     let i = 0
@@ -114,8 +114,10 @@ function App() {
     else {
       deletefn(cart_array[ind])
     }
+    console.log(cart_array)
 
   }
+  
   const [displaycart, updatecartdisplay] = useState(false)
   let cartsum = 0
   let cartpricefn = () => {
@@ -165,14 +167,15 @@ function App() {
     <div>
 
       <Router>
-        {!loginpage && (
+        
+         
           <Navbar dispfn={dispfn} dispfn2={dispfn2} carttotal={carttotal} />
+        
 
-
-        )}
-        {!loginpage && (
+        
+        
           <div className='nav-menu'><div>Dropdown</div><div>Dropdown</div><div>Dropdown</div><div>Dropdown</div><div>Dropdown</div><div>Dropdown</div><div>Dropdown</div><div>Dropdown</div><div>Dropdown</div></div>
-        )}
+        
 
 
 
@@ -190,7 +193,7 @@ function App() {
         </div>
         <div style={{ height: "703px" }} className={`cart-menu ${displayani2 ? "cart-animation" : "inv"}`}>
           <div style={{ fontFamily: "Poppins", fontSize: "28px", marginLeft: "22px", marginTop: "25px", marginBottom: "35px", display: "flex" }}><div>Welcome! User</div><RxCross2 onClick={dispfn2} style={{ marginLeft: "auto", position: "relative", right: "15px", top: "7px" }} />  </div>
-          <div className="user-list" style={{ borderTop: "1px solid rgb(0, 0, 0,0.4)" }} ><Link className="login-link" to={'/login'} style={{ textDecoration: "none" }}>Login</Link></div><div className="user-list">Account</div><div className="user-list">Wishlist</div><div className="user-list">Your orders</div>
+          <div className="user-list" style={{ borderTop: "1px solid rgb(0, 0, 0,0.4)" }} ><Link className="login-link" to={'/login'} style={{ textDecoration: "none" }} >Login</Link></div><div className="user-list">Account</div><div className="user-list">Wishlist</div><div className="user-list">Your orders</div>
           <div className="user-list">Track orders</div>
           <div className="user-list">Refund and returns</div><div className="user-list">Privacy policy</div>
           <div className="user-list">FAQ</div>
@@ -203,6 +206,7 @@ function App() {
           <Route exact path='/' element={<Itemgrid setarray={setarray} fetchData={fetchData} best_array={best_array} title={"Best sellers"} inc={inc} appendfn={appendfn} cart_array={cart_array} dec={dec} />} />
           <Route exact path='/products/:id' element={<Itempage fetchData={fetchData} best_array={best_array} appendfn={appendfn} setarray={setarray} />} />
           <Route exact path='/login' element={<Login />}></Route>
+          <Route exact path='/signup' element={<Signup/>}></Route>
         </Routes>
 
       </Router>
