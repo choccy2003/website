@@ -7,8 +7,12 @@ import './styles/navcss.css'
 import Cartcard from "./small components/Cartcard";
 import { RxCross2 } from 'react-icons/rx'
 import { CiFaceFrown } from 'react-icons/ci'
+import { FiChevronsRight } from 'react-icons/fi'
 import Login from "./components/Login";
 import Signup from "./components/Signup"
+import Productadd from "./components/Productadd";
+import Productdelete from "./components/Productdelete";
+import Adminpage from "./components/Adminpage.jsx";
 
 function App() {
   var [best_array, setarray] = useState([])
@@ -67,11 +71,15 @@ function App() {
       updatedisp2(true)
     }
   }
+  const [userdata, setuserdata] = useState({})
+
   const [cart_array, updatecartarr] = useState([])
+
   const deletefn = (value) => {
     updatecartarr(oldValues => {
       return oldValues.filter(cart_array => cart_array !== value)
     })
+
   }
   const appendfn = (val) => {
     const existingItemIndex = cart_array.findIndex(
@@ -86,7 +94,7 @@ function App() {
     } else {
       const newItem = { ...val, quantity: Number(val.quantity) };
       updatecartarr(prevCart => [...prevCart, newItem]);
-     
+
     }
   };
 
@@ -114,10 +122,10 @@ function App() {
     else {
       deletefn(cart_array[ind])
     }
-    console.log(cart_array)
+
 
   }
-  
+
   const [displaycart, updatecartdisplay] = useState(false)
   let cartsum = 0
   let cartpricefn = () => {
@@ -153,13 +161,18 @@ function App() {
     )
 
   }
+
   useEffect(() => {
     if (cart_array.length > 0) {
       updatecartdisplay(true);
+
+
     } else {
       updatecartdisplay(false);
     }
   }, [cart_array]);
+
+  const [isLoggedin, setLoggedin] = useState(false);
 
 
 
@@ -167,33 +180,33 @@ function App() {
     <div>
 
       <Router>
-        
-         
-          <Navbar dispfn={dispfn} dispfn2={dispfn2} carttotal={carttotal} />
-        
 
-        
-        
-          <div className='nav-menu'><div>Dropdown</div><div>Dropdown</div><div>Dropdown</div><div>Dropdown</div><div>Dropdown</div><div>Dropdown</div><div>Dropdown</div><div>Dropdown</div><div>Dropdown</div></div>
-        
+
+        <Navbar dispfn={dispfn} dispfn2={dispfn2} carttotal={carttotal} />
+
+
+
+
+        <div className='nav-menu'><div>Dropdown</div><div>Dropdown</div><div>Dropdown</div><div>Dropdown</div><div>Dropdown</div><div>Dropdown</div><div>Dropdown</div><div>Dropdown</div><div>Dropdown</div></div>
+
 
 
 
         <div className={`cart-menu ${displayani ? "cart-animation" : "inv"}`}>
           <div style={{ fontFamily: "Poppins", fontSize: "28px", marginLeft: "22px", marginTop: "15px", marginBottom: "-15px", display: "flex" }}><div>Your Cart</div><RxCross2 onClick={dispfn} style={{ marginLeft: "auto", position: "relative", right: "15px", top: "7px" }} />  </div>
-          {cart_array.map((cart_array, i) => {
-            return (<Cartcard deletefn={deletefn} key={i} cart_array={cart_array} cartinc={cartinc} cartdec={cartdec} index={i} />)
+          {cart_array.map((cart_item, i) => {
+            return (<Cartcard deletefn={deletefn} key={i} cart_array={cart_item} cartinc={cartinc} cartdec={cartdec} index={i} best_array={best_array} />)
           })
-
           }
-          {displaycart && (<div style={{ fontFamily: "Poppins", fontSize: "20px", marginLeft: "10px", marginTop: "30px" }}>{cartpricefn()}</div>)}
+
+          {displaycart && (<div style={{ fontFamily: "Poppins", fontSize: "20px", marginLeft: "10px", marginTop: "30px" }}><div>{cartpricefn()}</div><div style={{ width: "fit-content", margin: "auto", marginTop: "40px" }}><button className="add-btn" style={{ fontSize: "24px", width: "300px", height: "45px" }}><div style={{ display: "inline", position: "relative", bottom: "5px" }}>Proceed to checkout</div> <FiChevronsRight style={{ height: "30px", width: "30px", position: "relative", top: "2px" }} /> </button></div></div>)}
           {!displaycart && (<div style={{ opacity: "0.5" }}><CiFaceFrown style={{ height: "100px", width: "100px", position: "relative", top: "120px", left: "200px" }} /><div style={{ position: "relative", top: "150px", left: "90px", fontSize: "30px", fontFamily: "Poppins" }}>Cart is currently empty</div></div>)}
 
 
         </div>
         <div style={{ height: "703px" }} className={`cart-menu ${displayani2 ? "cart-animation" : "inv"}`}>
-          <div style={{ fontFamily: "Poppins", fontSize: "28px", marginLeft: "22px", marginTop: "25px", marginBottom: "35px", display: "flex" }}><div>Welcome! User</div><RxCross2 onClick={dispfn2} style={{ marginLeft: "auto", position: "relative", right: "15px", top: "7px" }} />  </div>
-          <div className="user-list" style={{ borderTop: "1px solid rgb(0, 0, 0,0.4)" }} ><Link className="login-link" to={'/login'} style={{ textDecoration: "none" }} >Login</Link></div><div className="user-list">Account</div><div className="user-list">Wishlist</div><div className="user-list">Your orders</div>
+          <div style={{ fontFamily: "Poppins", fontSize: "28px", marginLeft: "22px", marginTop: "25px", marginBottom: "35px", display: "flex" }}>{isLoggedin ? (<div>Welcome {userdata.username}!</div>) : (<div>Welcome User!</div>)}<RxCross2 onClick={dispfn2} style={{ marginLeft: "auto", position: "relative", right: "15px", top: "7px" }} />  </div>
+          {isLoggedin ? (<hr />) : (<div className="user-list" style={{ borderTop: "1px solid rgb(0, 0, 0,0.4)" }} ><Link className="login-link" to={'/login'} style={{ textDecoration: "none" }} >Login</Link></div>)}<div className="user-list">Account</div><div className="user-list">Wishlist</div><div className="user-list">Your orders</div>
           <div className="user-list">Track orders</div>
           <div className="user-list">Refund and returns</div><div className="user-list">Privacy policy</div>
           <div className="user-list">FAQ</div>
@@ -201,12 +214,14 @@ function App() {
 
         </div>
 
-
         <Routes>
           <Route exact path='/' element={<Itemgrid setarray={setarray} fetchData={fetchData} best_array={best_array} title={"Best sellers"} inc={inc} appendfn={appendfn} cart_array={cart_array} dec={dec} />} />
-          <Route exact path='/products/:id' element={<Itempage fetchData={fetchData} best_array={best_array} appendfn={appendfn} setarray={setarray} />} />
-          <Route exact path='/login' element={<Login />}></Route>
-          <Route exact path='/signup' element={<Signup/>}></Route>
+          <Route exact path='/products/:id' element={<Itempage userdata={userdata} fetchData={fetchData} best_array={best_array} appendfn={appendfn} setarray={setarray} cart_array={cart_array} />} />
+          <Route exact path='/login' element={<Login updatecartarr={updatecartarr} setLoggedin={setLoggedin} isLoggedin={isLoggedin} setuserdata={setuserdata} userdata={userdata} />}></Route>
+          <Route exact path='/signup' element={<Signup />}></Route>
+          <Route exact path='/admin/addproduct' element={<Productadd />}></Route>
+          <Route exact path='/admin/deleteproduct' element={<Productdelete />}></Route>
+          <Route exact path='/admin' element={<Adminpage />}></Route>
         </Routes>
 
       </Router>

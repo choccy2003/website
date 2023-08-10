@@ -6,7 +6,7 @@ import { FiChevronDown } from 'react-icons/fi'
 import { FaRegHeart, FaUserCircle } from 'react-icons/fa'
 import { GrFormAdd } from 'react-icons/gr'
 import Check from '../small components/Check'
-
+import axios from 'axios'
 
 
 const Itempage = (props) => {
@@ -66,14 +66,35 @@ const Itempage = (props) => {
       updateremwish(false)
     }
   }
+  { console.log(props.cart_array) }
   const multifn = () => {
     btnstate()
     if ((props.best_array[id].quantity > 0) && (props.best_array[id].size !== 'Size')) {
       props.appendfn(props.best_array[id])
+
     }
 
 
+
   }
+  useEffect(() => {
+    const cartData = {
+      email: props.userdata.email,
+      password: props.userdata.password,
+      cart: props.cart_array
+    };
+
+    axios.post('http://localhost:3001/users/addtocart', cartData)
+      .then(response => {
+        localStorage.setItem("token", response.data);
+        console.log('Cart updated:', response.data);
+        // Handle success, show a toast, or update UI as needed
+      })
+      .catch(error => {
+        console.error('Error updating cart:', error);
+        // Handle error, show a toast, or update UI as needed
+      });
+  }, [props.cart_array])
   const shoeSizes = [
     { us: 4, uk: 3.5, europe: 36 },
     { us: 4.5, uk: 4, europe: 37 },
@@ -91,19 +112,20 @@ const Itempage = (props) => {
     { us: 10.5, uk: 10, europe: 44.5 },
     { us: 11, uk: 10.5, europe: 45 },
   ];
-  
+
   const [dataFetched, setDataFetched] = useState(false);
 
   useEffect(() => {
-    
+
     (async () => {
       await props.fetchData();
-      setDataFetched(true); 
+      setDataFetched(true);
+      console.log(props.best_array)
     })();
   }, []);
- 
+
   if (!dataFetched) {
-    
+
     return <div>Loading...</div>;
   }
   if (props.best_array.length >= id) {
@@ -144,7 +166,7 @@ const Itempage = (props) => {
                 <ul className='list'>
                   <li><span className='ques'>Delivery:</span><span className='ans'>3-5 Days</span></li>
                   <li><span className='ques'>Region:</span><span className='ans'>India</span></li>
-                  <li><span className='ques'>{"Sizes Available"+(props.best_array[id].category=='Footwear'?("(US):"):(""))}</span>{props.best_array[id].category==='Clothing'?(<span className='ans'><span className='size'><span className='size-txt'>&nbsp;S</span></span><span className='size'><span className='size-txt'>M</span></span><span className='size'><span className='size-txt'>&nbsp;L</span></span><span className='size'><span className='size-txt'>XL</span></span><span className='size'>XXL</span></span>):(<span className='ans' ><span className='size'><span className='size-txt'>&nbsp;7</span></span><span className='size'><span className='size-txt'>&nbsp;8</span></span><span className='size'><span className='size-txt'>&nbsp;9</span></span><span className='size'><span className='size-txt'>10</span></span><span className='size'>&nbsp;11</span></span>)}</li>
+                  <li><span className='ques'>{"Sizes Available" + (props.best_array[id].category == 'Footwear' ? ("(US):") : (""))}</span>{props.best_array[id].category === 'Clothing' ? (<span className='ans'><span className='size'><span className='size-txt'>&nbsp;S</span></span><span className='size'><span className='size-txt'>M</span></span><span className='size'><span className='size-txt'>&nbsp;L</span></span><span className='size'><span className='size-txt'>XL</span></span><span className='size'>XXL</span></span>) : (<span className='ans' ><span className='size'><span className='size-txt'>&nbsp;7</span></span><span className='size'><span className='size-txt'>&nbsp;8</span></span><span className='size'><span className='size-txt'>&nbsp;9</span></span><span className='size'><span className='size-txt'>10</span></span><span className='size'>&nbsp;11</span></span>)}</li>
                 </ul>
 
               </div>
@@ -152,7 +174,7 @@ const Itempage = (props) => {
                 <div className='prod-price'><span style={{ fontFamily: "sans-serif" }}>₹&nbsp;</span>{props.best_array[id].price.toLocaleString('en-IN')}</div>
                 <div className='sizebox'>
                   <div className='size-btn'>
-                    <div style={{ height: "20px", width: "26px",fontSize:"17px" }}>{props.best_array[id].size}</div>
+                    <div style={{ height: "20px", width: "26px", fontSize: "17px" }}>{props.best_array[id].size}</div>
                     <div className='dd-btn' onClick={dispfunc}><FiChevronDown /></div>
                   </div>
 
@@ -173,19 +195,19 @@ const Itempage = (props) => {
                 <div className='quan-list' onClick={(e) => udpquan(e)}><ol><li className='qitms' onClick={(e) => udpquan(e)}>1</li><li className='qitms' onClick={(e) => udpquan(e)}>2</li><li className='qitms' onClick={(e) => udpquan(e)}>3</li><li className='qitms' onClick={(e) => udpquan(e)}>4</li><li className='qitms' style={{ borderBottomLeftRadius: "10px", borderBottomRightRadius: "10px" }}>5</li></ol></div>
               )}
 
-              {displaylist && (props.best_array[id].category==='Clothing'?(<div className='size-list' onClick={(e) => udpsize(e)}><ol><li className='itms' onClick={(e) => udpsize(e)}>S</li><li className='itms' onClick={(e) => udpsize(e)}>M</li><li className='itms' onClick={(e) => udpsize(e)}>L</li><li className='itms' onClick={(e) => udpsize(e)}>XL</li><li className='itms' style={{ borderBottomLeftRadius: "10px", borderBottomRightRadius: "10px" }}>XXL</li></ol></div>):(<div className='size-list' onClick={(e) => udpsize(e)}><ol><li className='itms' onClick={(e) => udpsize(e)}>7</li><li className='itms' onClick={(e) => udpsize(e)}>8</li><li className='itms' onClick={(e) => udpsize(e)}>9</li><li className='itms' onClick={(e) => udpsize(e)}>10</li><li className='itms' style={{ borderBottomLeftRadius: "10px", borderBottomRightRadius: "10px" }}>11</li></ol></div>))}
+              {displaylist && (props.best_array[id].category === 'Clothing' ? (<div className='size-list' onClick={(e) => udpsize(e)}><ol><li className='itms' onClick={(e) => udpsize(e)}>S</li><li className='itms' onClick={(e) => udpsize(e)}>M</li><li className='itms' onClick={(e) => udpsize(e)}>L</li><li className='itms' onClick={(e) => udpsize(e)}>XL</li><li className='itms' style={{ borderBottomLeftRadius: "10px", borderBottomRightRadius: "10px" }}>XXL</li></ol></div>) : (<div className='size-list' onClick={(e) => udpsize(e)}><ol><li className='itms' onClick={(e) => udpsize(e)}>7</li><li className='itms' onClick={(e) => udpsize(e)}>8</li><li className='itms' onClick={(e) => udpsize(e)}>9</li><li className='itms' onClick={(e) => udpsize(e)}>10</li><li className='itms' style={{ borderBottomLeftRadius: "10px", borderBottomRightRadius: "10px" }}>11</li></ol></div>))}
 
 
             </div>
 
             <div className='pannel'><div className='pannel-itms' onClick={() => { updatedes(true); updaterev(false); updateques(false) }}>Description<br /><hr className={activedes ? 'line2' : 'inv'}></hr></div><div className='pannel-itms' onClick={() => { updatedes(false); updaterev(true); updateques(false) }}>Reviews<br /><hr className={activerev ? 'line2' : 'inv'} style={{ maxWidth: "75%" }}></hr></div><div className='pannel-itms' onClick={() => { updatedes(false); updaterev(false); updateques(true) }}>Questions<br /><hr className={activeques ? 'line2' : 'inv'} style={{ maxWidth: "90%" }}></hr></div></div>
             <div className='disbox'>
-              {activedes &&  (<div>
+              {activedes && (<div>
                 <div style={{ fontWeight: "600", fontSize: "20px", fontFamily: "Poppins", paddingBottom: "10px", paddingTop: "10px" }}>Origin</div>
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium nostrum nulla aspernatur modi reiciendis blanditiis ipsam id excepturi tenetur placeat molestiae, alias culpa fugiat aperiam eum laudantium exercitationem nesciunt. Aspernatur!
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cumque, a tenetur. Placeat reprehenderit minima sint repellendus fugit blanditiis dignissimos eius similique deleniti fugiat? Tempora fugit ab nisi libero quisquam eius? Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ab nam voluptas, fuga officiis vel tempora ipsa autem est incidunt. Modi quas voluptatem omnis quidem ducimus, laboriosam doloremque sapiente magni aperiam?
                 <div style={{ fontWeight: "600", fontSize: "20px", fontFamily: "Poppins", paddingBottom: "10px", paddingTop: "20px" }}>Our size chart</div>
-                {props.best_array[id].category==='Clothing'?(<table className='sizetable'>
+                {props.best_array[id].category === 'Clothing' ? (<table className='sizetable'>
                   <thead>
                     <tr>
                       <td>Category</td>
@@ -230,24 +252,24 @@ const Itempage = (props) => {
                       <td>41-43</td>
                     </tr>
                   </tbody>
-                </table>):(    <table className='sizetable' style={{fontSize:"20px"}}>
-      <thead>
-        <tr>
-          <th>US</th>
-          <th>UK</th>
-          <th>Europe</th>
-        </tr>
-      </thead>
-      <tbody>
-        {shoeSizes.map((size, index) => (
-          <tr key={index}>
-            <td>{size.us}</td>
-            <td>{size.uk}</td>
-            <td>{size.europe}</td>
-          </tr>
-        ))}
-      </tbody>
-    </table>)}
+                </table>) : (<table className='sizetable' style={{ fontSize: "20px" }}>
+                  <thead>
+                    <tr>
+                      <th>US</th>
+                      <th>UK</th>
+                      <th>Europe</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {shoeSizes.map((size, index) => (
+                      <tr key={index}>
+                        <td>{size.us}</td>
+                        <td>{size.uk}</td>
+                        <td>{size.europe}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>)}
               </div>)}
               {activerev && (<div>
                 <div className='review-card'>

@@ -1,23 +1,25 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap');
-.product-page{
+
+.product-page {
     display: flex;
-    gap:50px
+    gap: 50px
 }
-.img-grid{
+
+.img-grid {
     display: flex;
     flex-direction: column;
     width: 45%;
-    gap:30px;
+    gap: 30px;
     margin-top: 40px;
     margin-left: 40px;
     margin-right: 0;
     flex-wrap: nowrap;
     flex: 1 0;
-    
-    
+
+
 }
 
-.product-img{
+.product-img {
     flex-shrink: 0 !important;
     height: "fit-content";
     border-radius: 20px;
@@ -25,7 +27,8 @@
 
     display: inline;
 }
-.product-info{
+
+.product-info {
     flex-shrink: 0 !important;
     cursor: default;
     height: "fit-content";
@@ -34,93 +37,107 @@
     flex-shrink: 0;
     display: inline;
 }
-.info-grid{
+
+.info-grid {
     display: flex;
     flex-direction: column;
     position: relative;
     width: 50%;
     margin-top: 40px;
     margin-right: 40px;
-   
+
 }
-.rate{
+
+.rate {
     opacity: 0.6;
     font-size: 12px;
     position: relative;
     left: 5px;
 }
-.prod-name{
-    
+
+.prod-name {
+
     font-size: 34px;
     font-weight: 600;
-    padding-bottom: 3px; 
+    padding-bottom: 3px;
     font-family: "Poppins";
 }
-.prod-des{
+
+.prod-des {
     padding-top: 20px;
-    font:"Open Sans";
+    font: "Open Sans";
     line-height: 23px;
-    font-size:19px;
+    font-size: 19px;
     min-width: 510px;
     max-width: 650px;
 }
-.prod-det{
+
+.prod-det {
     margin-top: 20px;
     display: flex;
-    gap:120px
+    gap: 120px
 }
-.list{
-list-style-type:none;
-padding-inline-start: 0px;
-gap:20px;
-cursor: default;
+
+.list {
+    list-style-type: none;
+    padding-inline-start: 0px;
+    gap: 20px;
+    cursor: default;
 }
-.ques{
+
+.ques {
     opacity: 0.5;
     font-weight: 500;
     width: 120px;
     display: inline-block;
     margin-bottom: 15px;
 }
-.ans{
+
+.ans {
     position: relative;
-    left:20px
+    left: 20px
 }
-.er{
+
+.er {
     margin-left: -25px;
 }
-.size{
+
+.size {
     display: inline-block;
     margin-left: 5px;
     padding: 5px;
     width: 20px;
     font-size: 12px;
     border-radius: 2px;
-    border: 1px solid rgb(0, 0, 0,0.6);
+    border: 1px solid rgb(0, 0, 0, 0.6);
 
 }
-.size:hover{
-    border: 1px solid rgb(0, 0, 0,0.4);
+
+.size:hover {
+    border: 1px solid rgb(0, 0, 0, 0.4);
     background-color: rgb(244, 244, 244);
     cursor: default;
 }
-.size-txt{
+
+.size-txt {
     display: inline-block;
     margin-left: 4px;
 }
-.btn-grid2{
+
+.btn-grid2 {
     display: flex;
     margin-top: 30px;
     width: 710px;
     height: 90px;
-    border: 1px solid rgb(0, 0, 0,0.1);
+    border: 1px solid rgb(0, 0, 0, 0.1);
     align-items: center;
     border-radius: 15px;
     gap: 70px;
-    
+
 }
-.prod-price{
-    
+
+.prod-price {
+
     font-size: 34px;
     font-weight: 500;
     font-family: "Poppins";
@@ -128,77 +145,87 @@ cursor: default;
     max-width: 140px;
     min-width: 140px;
 }
-.sizebox{
+
+.sizebox {
     height: 40px;
     width: 70px;
     border-radius: 10px;
-    border: 1px solid rgb(0, 0, 0,0.4);
+    border: 1px solid rgb(0, 0, 0, 0.4);
     user-select: none;
 }
-.size-btn{
+
+.size-btn {
     display: flex;
     margin: auto;
     padding-top: 8px;
     padding-left: 12px;
 }
-.dd-btn{
+
+.dd-btn {
     position: relative;
     left: 6px;
-    top:3px;
+    top: 3px;
 }
-.size-list{
+
+.size-list {
     user-select: none;
     width: 70px;
     height: 150px;
-    border: 1px solid rgb(0, 0, 0,0.4);
+    border: 1px solid rgb(0, 0, 0, 0.4);
     border-radius: 10px;
-    display:inline-block;
+    display: inline-block;
     position: relative;
     left: 246px;
     bottom: 35px;
     z-index: 2;
-    padding-top:10px ;
+    padding-top: 10px;
     background-color: rgb(255, 255, 255);
     border-top: 0px;
     border-top-left-radius: 0px;
     border-top-right-radius: 0px;
 
 }
-.itms{
+
+.itms {
     width: 60px;
     height: 25px;
     padding-left: 10px;
     padding-top: 5px;
     z-index: 1;
 }
-.itms:hover{
+
+.itms:hover {
     background-color: rgb(244, 244, 244);
 }
-ol{
+
+ol {
     list-style-type: none;
-    margin-block-start:0px;
+    margin-block-start: 0px;
     margin-block-end: 0px;
     margin-inline-start: 0px;
     margin-inline-end: 0px;
     padding-inline-start: 0px;
 }
-.sym{
-display: inline-block;
-position: relative;
-top:7px;
-margin-left: 3px;
-z-index: 2;
-min-width: 30px;
-max-width: 30px;
+
+.sym {
+    display: inline-block;
+    position: relative;
+    top: 7px;
+    margin-left: 3px;
+    z-index: 2;
+    min-width: 30px;
+    max-width: 30px;
 
 }
-.cl{
+
+.cl {
     filter: invert(99%) sepia(96%) saturate(3%) hue-rotate(72deg) brightness(104%) contrast(100%);
 }
-.cart-btn{
+
+.cart-btn {
     height: 42px;
     width: 140px;
-    border-radius: 10px ;
+    border-radius: 10px;
     border: 1px solid #46760A;
     background-color: #6A983C;
     color: rgb(255, 255, 255);
@@ -207,61 +234,70 @@ max-width: 30px;
     font-family: "Poppins";
     z-index: 2;
 }
-.cart-btn:hover{
-    background-color:#46760A ;
+
+.cart-btn:hover {
+    background-color: #46760A;
 }
-.qtxt{
+
+.qtxt {
     border: 0px;
     font-size: 17px;
     padding: 3px;
-   outline: none;
+    outline: none;
     width: 25px;
 
 }
-.qtxt:focus{
+
+.qtxt:focus {
     font-size: 12px;
 }
-.qbox{
+
+.qbox {
     height: 40px;
     width: 90px;
     border-radius: 10px;
-    border: 1px solid rgb(0, 0, 0,0.4);
+    border: 1px solid rgb(0, 0, 0, 0.4);
     user-select: none;
 }
-.quan-list{
+
+.quan-list {
     user-select: none;
     width: 90px;
     height: 150px;
-    border: 1px solid rgb(0, 0, 0,0.4);
+    border: 1px solid rgb(0, 0, 0, 0.4);
     border-radius: 10px;
-    display:inline-block;
+    display: inline-block;
     position: relative;
     left: 388px;
     bottom: 35px;
     z-index: 100;
-    padding-top:10px ;
+    padding-top: 10px;
     background-color: rgb(255, 255, 255);
     border-top: 0px;
     border-top-left-radius: 0px;
     border-top-right-radius: 0px;
 }
-.qitms{
+
+.qitms {
     width: 75px;
     height: 25px;
     padding-left: 15px;
     padding-top: 5px;
-    
+
 }
-.qitms:hover{
+
+.qitms:hover {
     background-color: rgb(244, 244, 244);
 }
-.pannel{
-    display:flex;
-    gap:210px;
+
+.pannel {
+    display: flex;
+    gap: 210px;
     z-index: 0;
     margin-top: 30px;
 }
-.pannel-itms{
+
+.pannel-itms {
     font-size: 20px;
     font-weight: 600;
     min-width: 120px;
@@ -269,7 +305,8 @@ max-width: 30px;
     font-family: 'Poppins';
     text-decoration: none;
 }
-.line2{
+
+.line2 {
     display: inline-block;
     width: 0px;
     height: 5px;
@@ -278,73 +315,100 @@ max-width: 30px;
     border-radius: 5px;
     animation-name: lineani;
     animation-duration: 200ms;
-    animation-fill-mode:both;
+    animation-fill-mode: both;
     z-index: 4;
-    animation-direction:normal;
+    animation-direction: normal;
     animation-timing-function: ease-in;
 }
+
 @keyframes lineani {
-25%{width: 30px;}
-50%{width: 60px;}
-75%{width: 90px;}
-100%{width: 120px;}
+    25% {
+        width: 30px;
+    }
+
+    50% {
+        width: 60px;
+    }
+
+    75% {
+        width: 90px;
+    }
+
+    100% {
+        width: 120px;
+    }
 }
-.disbox{
-    width:800px;
+
+.disbox {
+    width: 800px;
 }
-table,th,tr,td{
+
+table,
+th,
+tr,
+td {
     border: 1px solid black;
 }
-.sizetable{
+
+.sizetable {
     border-collapse: collapse;
     width: 600px;
     height: 200px;
     text-align: center;
 }
-.review-card{
+
+.review-card {
     height: 270px;
     width: 750px;
-    
+
 }
 
-  
-@media screen and (max-width: 1422px){
-    .prod-des{
+
+@media screen and (max-width: 1422px) {
+    .prod-des {
         font-size: 15px;
         line-height: 19px;
     }
-    .prod-name{
+
+    .prod-name {
         font-size: 20px;
     }
-    .product-img{
+
+    .product-img {
         height: 350px;
         width: 500px;
         padding-left: 4%;
     }
-    .prod-det{
+
+    .prod-det {
         font-size: 14px;
     }
-    .ques{
+
+    .ques {
         width: 100px;
-        
+
     }
 
-    .size{
-        height:13px ;
+    .size {
+        height: 13px;
         width: 15px;
     }
-    .size-txt{
+
+    .size-txt {
         position: relative;
-        right:3px;
-        bottom:1px;
+        right: 3px;
+        bottom: 1px;
     }
-    .pannel{
+
+    .pannel {
         margin-top: 10px;
     }
-    .quan-list{
+
+    .quan-list {
         left: 389px;
     }
-    .size-list{
+
+    .size-list {
         left: 247px;
     }
 }
@@ -362,7 +426,4 @@ table,th,tr,td{
     visibility: hidden;
     opacity: 0;
     transition: visibility 0s, opacity 0.3s;
-  }
-  
-
-    
+}
