@@ -187,8 +187,16 @@ html {
     align-items: center;
     font-weight: 600;
     cursor: default;
+    font-size: 18px;
 }
+.nav-item{
 
+   padding:10px
+}
+.nav-item:hover{
+background-color: #e4e4e4;
+
+}
 .cart-var {
     display: block;
     z-index: 10;

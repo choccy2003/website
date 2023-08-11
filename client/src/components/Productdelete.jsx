@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { BsCheckAll } from 'react-icons/bs';
 import axios from 'axios';
+import {RxCross1} from 'react-icons/rx'
 import { useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const Productdelete = () => {
@@ -34,7 +35,7 @@ const Productdelete = () => {
 
                 toast.success('Product deleted successfully!', {
                     onClose: () => {
-                        navigate('/');
+                        navigate('/admin');
                     },
                 });
             })
@@ -67,6 +68,7 @@ const Productdelete = () => {
                             borderRadius: '7px',
                         }}
                     >
+                         <div><RxCross1 style={{height:"30px",width:"30px",position:"relative",left:"350px",top:"20px"}} onClick={()=>{navigate('/admin')}}/></div>
                         <div
                             style={{
                                 marginLeft: '20px',
@@ -74,7 +76,7 @@ const Productdelete = () => {
                                 fontWeight: '500',
                                 width: 'fit-content',
                                 margin: 'auto',
-                                paddingTop: '40px',
+                                paddingTop: '20px',
                                 paddingBottom: '30px',
                             }}
                         >
@@ -196,6 +198,7 @@ const Productdelete = () => {
                     )}
                 </div>
             </div>
+            <ToastContainer/>
         </>
     )
 }

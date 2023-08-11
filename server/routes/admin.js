@@ -1,33 +1,27 @@
 var express = require('express');
 var router = express.Router();
 const Product = require('../models/products')
+const Orders = require('../models/orders')
 /* GET home page. */
 router.post('/addproduct', async (req, res, next) => {
     try {
-        const { id } = req.body
-        const exs = await Product.findOne({ id }).exec()
+        const existingProducts = await Product.find();
+        const newProductData = req.body;
+        newProductData.id = existingProducts.length ;
 
-        if (exs) {
-            res.json({ msg: 'a product already exists with following ID' })
-        }
-        else {
-            let products = await new Product(req.body).save();
-            res.json({
-                msg: "Success",
-                success: true,
-                data: products
-            })
-        }
-
-    }
-    catch (err) {
+        const newProduct = await new Product(newProductData).save();
+        res.json({
+            msg: "Success",
+            success: true,
+            data: newProduct
+        });
+    } catch (err) {
         res.json({
             msg: `Failure ${err}`,
             success: false
-        })
+        });
     }
-
-})
+});
 router.post('/deleteproduct', async (req, res, next) => {
     try {
         const { id } = req.body
@@ -55,5 +49,17 @@ router.post('/deleteproduct', async (req, res, next) => {
     }
 
 })
+
+router.get('/getorders', async (req, res, next) => {
+    try {
+       const order=await Orders.find()
+       res.json(order)
+    } catch (err) {
+        res.json({
+            msg: `Failure ${err}`,
+            success: false
+        });
+    }
+});
 
 module.exports = router;

@@ -207,15 +207,15 @@ const Itempage = (props) => {
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium nostrum nulla aspernatur modi reiciendis blanditiis ipsam id excepturi tenetur placeat molestiae, alias culpa fugiat aperiam eum laudantium exercitationem nesciunt. Aspernatur!
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cumque, a tenetur. Placeat reprehenderit minima sint repellendus fugit blanditiis dignissimos eius similique deleniti fugiat? Tempora fugit ab nisi libero quisquam eius? Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ab nam voluptas, fuga officiis vel tempora ipsa autem est incidunt. Modi quas voluptatem omnis quidem ducimus, laboriosam doloremque sapiente magni aperiam?
                 <div style={{ fontWeight: "600", fontSize: "20px", fontFamily: "Poppins", paddingBottom: "10px", paddingTop: "20px" }}>Our size chart</div>
-                {props.best_array[id].category === 'Clothing' ? (<table className='sizetable'>
+                {props.best_array[id].category === 'Clothing' ? (<table className='table' style={{fontSize:"20px"}}>
                   <thead>
                     <tr>
-                      <td>Category</td>
-                      <td>Small</td>
-                      <td>Medium</td>
-                      <td>Large</td>
-                      <td>X-Large</td>
-                      <td>XX-Large</td>
+                      <th>Category</th>
+                      <th>Small</th>
+                      <th>Medium</th>
+                      <th>Large</th>
+                      <th>X-Large</th>
+                      <th>XX-Large</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -252,7 +252,7 @@ const Itempage = (props) => {
                       <td>41-43</td>
                     </tr>
                   </tbody>
-                </table>) : (<table className='sizetable' style={{ fontSize: "20px" }}>
+                </table>) : (<table className='table' style={{ fontSize: "20px" }}>
                   <thead>
                     <tr>
                       <th>US</th>

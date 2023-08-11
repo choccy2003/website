@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { BsCheckAll } from 'react-icons/bs';
+import {RxCross1} from 'react-icons/rx'
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
@@ -9,7 +10,7 @@ const Productadd = () => {
         name: '',
         price: '',
         category: '',
-        id: '',
+        description: '',
     });
     const navigate = useNavigate();
 
@@ -34,7 +35,7 @@ const Productadd = () => {
 
                 toast.success('Product added successfully!', {
                     onClose: () => {
-                        navigate('/');
+                        navigate('/admin');
                     },
                 });
             })
@@ -67,6 +68,7 @@ const Productadd = () => {
                         borderRadius: '7px',
                     }}
                 >
+                    <div><RxCross1 style={{height:"30px",width:"30px",position:"relative",left:"350px",top:"20px"}} onClick={()=>{navigate('/admin')}}/></div>
                     <div
                         style={{
                             marginLeft: '20px',
@@ -74,7 +76,7 @@ const Productadd = () => {
                             fontWeight: '500',
                             width: 'fit-content',
                             margin: 'auto',
-                            paddingTop: '40px',
+                            paddingTop: '10px',
                             paddingBottom: '30px',
                         }}
                     >
@@ -113,11 +115,11 @@ const Productadd = () => {
                                 marginTop: '10px',
                             }}
                         >
-                            Product ID
+                            Product description
                         </div>
                         <input
-                            value={product.id}
-                            name="id"
+                            value={product.description}
+                            name="description"
                             style={{
                                 marginLeft: '40px',
                                 fontSize: '22px',
@@ -218,6 +220,7 @@ const Productadd = () => {
                     </div>
                 )}
             </div>
+            <ToastContainer/>
         </>
     );
 };

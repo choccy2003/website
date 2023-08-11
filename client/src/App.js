@@ -13,6 +13,9 @@ import Signup from "./components/Signup"
 import Productadd from "./components/Productadd";
 import Productdelete from "./components/Productdelete";
 import Adminpage from "./components/Adminpage.jsx";
+import Checkout from "./small components/Checkout";
+import Carousel2 from "./components/Carousel2";
+import { Carousel } from "react-responsive-carousel";
 
 function App() {
   var [best_array, setarray] = useState([])
@@ -173,7 +176,7 @@ function App() {
   }, [cart_array]);
 
   const [isLoggedin, setLoggedin] = useState(false);
-
+ const [checkout,setcheckout]= useState(false)
 
 
   return (
@@ -187,7 +190,7 @@ function App() {
 
 
 
-        <div className='nav-menu'><div>Dropdown</div><div>Dropdown</div><div>Dropdown</div><div>Dropdown</div><div>Dropdown</div><div>Dropdown</div><div>Dropdown</div><div>Dropdown</div><div>Dropdown</div></div>
+        <div className='nav-menu'><div className="nav-item">Best Sellers</div><div className="nav-item">New Arrivals</div><div className="nav-item">Clothing</div><div className="nav-item">Footwear</div><div className="nav-item">Accessories</div><div className="nav-item">Shop By Brand</div><div className="nav-item">Trending Now</div><div className="nav-item">Gifts</div><div style={{width:"120px"}}></div></div>
 
 
 
@@ -199,7 +202,7 @@ function App() {
           })
           }
 
-          {displaycart && (<div style={{ fontFamily: "Poppins", fontSize: "20px", marginLeft: "10px", marginTop: "30px" }}><div>{cartpricefn()}</div><div style={{ width: "fit-content", margin: "auto", marginTop: "40px" }}><button className="add-btn" style={{ fontSize: "24px", width: "300px", height: "45px" }}><div style={{ display: "inline", position: "relative", bottom: "5px" }}>Proceed to checkout</div> <FiChevronsRight style={{ height: "30px", width: "30px", position: "relative", top: "2px" }} /> </button></div></div>)}
+          {displaycart && (<div style={{ fontFamily: "Poppins", fontSize: "20px", marginLeft: "10px", marginTop: "30px" }}><div>{cartpricefn()}</div><div style={{ width: "fit-content", margin: "auto", marginTop: "40px" }}><button className="add-btn" style={{ fontSize: "24px", width: "300px", height: "45px" }}><div style={{ display: "inline", position: "relative", bottom: "5px" }} onClick={()=>{setcheckout(true)}}>Proceed to checkout</div> <FiChevronsRight style={{ height: "30px", width: "30px", position: "relative", top: "2px" }} /> </button></div></div>)}
           {!displaycart && (<div style={{ opacity: "0.5" }}><CiFaceFrown style={{ height: "100px", width: "100px", position: "relative", top: "120px", left: "200px" }} /><div style={{ position: "relative", top: "150px", left: "90px", fontSize: "30px", fontFamily: "Poppins" }}>Cart is currently empty</div></div>)}
 
 
@@ -213,7 +216,8 @@ function App() {
           <div className="user-list">About us</div>
 
         </div>
-
+        {checkout&&( <Checkout setcheckout={setcheckout} cart_array={cart_array} />)}
+        
         <Routes>
           <Route exact path='/' element={<Itemgrid setarray={setarray} fetchData={fetchData} best_array={best_array} title={"Best sellers"} inc={inc} appendfn={appendfn} cart_array={cart_array} dec={dec} />} />
           <Route exact path='/products/:id' element={<Itempage userdata={userdata} fetchData={fetchData} best_array={best_array} appendfn={appendfn} setarray={setarray} cart_array={cart_array} />} />
@@ -221,7 +225,8 @@ function App() {
           <Route exact path='/signup' element={<Signup />}></Route>
           <Route exact path='/admin/addproduct' element={<Productadd />}></Route>
           <Route exact path='/admin/deleteproduct' element={<Productdelete />}></Route>
-          <Route exact path='/admin' element={<Adminpage />}></Route>
+          <Route exact path='/admin' element={<Adminpage best_array={best_array} cart_array={cart_array} setarray={setarray}/>}></Route>
+          
         </Routes>
 
       </Router>

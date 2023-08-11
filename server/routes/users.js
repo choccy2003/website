@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 const Product = require('../models/products')
 const Users = require('../models/users')
+const Orders = require('../models/orders')
 
 router.get('/listproducts', async (req, res, next) => {
   try {
@@ -70,6 +71,22 @@ router.post('/addtocart', async (req, res, next) => {
   }
 });
 
+router.post('/order',async(req,res,next)=>{
+  try{
+const newOrder = new Orders(req.body);
+const order = await newOrder.save();
+
+    if(order){
+      res.send('Success')
+    }
+    else{
+      res.send("failure")
+    }
+  }
+  catch(err){
+    res.send(err)
+  }
+})
 
 
 module.exports = router;
