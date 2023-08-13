@@ -32,6 +32,7 @@ const Checkout = (props) => {
       .then((response) => {
         console.log('Order added successfully:', response.data);
         props.setcheckout(false)
+        props.updatecartarr([])
       })
       .catch((error) => {
         console.error('Error adding product:', error);

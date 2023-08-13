@@ -5,7 +5,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-const Productadd = () => {
+const Productadd = (props) => {
     const [product, setProduct] = useState({
         name: '',
         price: '',
@@ -27,7 +27,9 @@ const Productadd = () => {
         event.preventDefault();
 
         axios
-            .post('http://localhost:3001/admin/addproduct', product)
+            .post('http://localhost:3001/admin/addproduct', product, {
+                headers: { Authorization: `Bearer ${props.token}` },
+              })
             .then((response) => {
                 console.log('Product added successfully:', response.data);
                 setsuccess(response.data.success)

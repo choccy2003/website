@@ -3,7 +3,7 @@ var router = express.Router();
 const Product = require('../models/products')
 const Users = require('../models/users')
 const Orders = require('../models/orders')
-
+const jwt = require('jsonwebtoken');
 router.get('/listproducts', async (req, res, next) => {
   try {
     let products = await Product.find().exec()
@@ -16,33 +16,40 @@ router.get('/listproducts', async (req, res, next) => {
 });
 router.post('/login', async (req, res, next) => {
   try {
+    
+    if(req.body.email=="admin"&&req.body.password=="123"){
+      res.send("admin login")
+    }
     const { email, password } = req.body;
     const user = await Users.findOne({ email, password }).exec();
-
+    
     if (user) {
-      res.send({ data: user, msg: "Login successful!" })
+      
+    
+
+         res.send({ data: user, msg: "Login successful!" })
+      
     }
-    else {
-      res.send("Login failed!")
-    }
+    
+    
   }
   catch (err) {
-    res.send("Login failed!", err)
+    res.send("Login failed!")
   }
 
 });
 router.post('/signup', async (req, res, next) => {
   try {
     const { username, password, email, phone } = req.body;
-    const user = await Users.findOne({ username }).exec();
+    const user = await Users.findOne({ email }).exec();
 
     if (user) {
-      res.send("Select another username!")
+      res.send("Email already in use!!")
     }
     else {
       const newUser = new Users({ username, password, email, phone });
       await newUser.save();
-      res.send("Signup successful! User registered.");
+      res.send({msg: "Signup successful!"});
     }
   }
   catch (err) {

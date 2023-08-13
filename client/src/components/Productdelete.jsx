@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-const Productdelete = () => {
+const Productdelete = (props) => {
     const [product, setProduct] = useState({
         name: '',
         category: '',
@@ -27,7 +27,9 @@ const Productdelete = () => {
         event.preventDefault();
 
         axios
-            .post('http://localhost:3001/admin/deleteproduct', product)
+            .post('http://localhost:3001/admin/deleteproduct', product, {
+                headers: { Authorization: `Bearer ${props.token}` },
+              })
             .then((response) => {
                 console.log('Product deleted successfully:', response.data);
                 setsuccess(response.data.success)

@@ -14,8 +14,7 @@ import Productadd from "./components/Productadd";
 import Productdelete from "./components/Productdelete";
 import Adminpage from "./components/Adminpage.jsx";
 import Checkout from "./small components/Checkout";
-import Carousel2 from "./components/Carousel2";
-import { Carousel } from "react-responsive-carousel";
+import { useNavigate } from 'react-router-dom';
 
 function App() {
   var [best_array, setarray] = useState([])
@@ -177,8 +176,22 @@ function App() {
 
   const [isLoggedin, setLoggedin] = useState(false);
  const [checkout,setcheckout]= useState(false)
+ const handleCheckout=()=>{
+  if(isLoggedin){
+    setcheckout(true)
+  }
+else{
+  window.location.href = 'http://localhost:3000/login';
+}
+    
+ } 
 
-
+ const handleLogout=()=>{
+    setLoggedin(false)
+    setuserdata([])
+    window.location.href = 'http://localhost:3000/';
+  }
+  const [token,setToken]=useState(null)
   return (
     <div>
 
@@ -202,7 +215,7 @@ function App() {
           })
           }
 
-          {displaycart && (<div style={{ fontFamily: "Poppins", fontSize: "20px", marginLeft: "10px", marginTop: "30px" }}><div>{cartpricefn()}</div><div style={{ width: "fit-content", margin: "auto", marginTop: "40px" }}><button className="add-btn" style={{ fontSize: "24px", width: "300px", height: "45px" }}><div style={{ display: "inline", position: "relative", bottom: "5px" }} onClick={()=>{setcheckout(true)}}>Proceed to checkout</div> <FiChevronsRight style={{ height: "30px", width: "30px", position: "relative", top: "2px" }} /> </button></div></div>)}
+          {displaycart && (<div style={{ fontFamily: "Poppins", fontSize: "20px", marginLeft: "10px", marginTop: "30px" }}><div>{cartpricefn()}</div><div style={{ width: "fit-content", margin: "auto", marginTop: "40px" }}><button className="add-btn" style={{ fontSize: "24px", width: "300px", height: "45px" }}><div style={{ display: "inline", position: "relative", bottom: "5px" }} onClick={()=>{handleCheckout()}}>Proceed to checkout</div> <FiChevronsRight style={{ height: "30px", width: "30px", position: "relative", top: "2px" }} /> </button></div></div>)}
           {!displaycart && (<div style={{ opacity: "0.5" }}><CiFaceFrown style={{ height: "100px", width: "100px", position: "relative", top: "120px", left: "200px" }} /><div style={{ position: "relative", top: "150px", left: "90px", fontSize: "30px", fontFamily: "Poppins" }}>Cart is currently empty</div></div>)}
 
 
@@ -213,19 +226,20 @@ function App() {
           <div className="user-list">Track orders</div>
           <div className="user-list">Refund and returns</div><div className="user-list">Privacy policy</div>
           <div className="user-list">FAQ</div>
-          <div className="user-list">About us</div>
+         {isLoggedin&&(<div className="user-list" onClick={handleLogout}>Log out</div>)} 
 
         </div>
-        {checkout&&( <Checkout setcheckout={setcheckout} cart_array={cart_array} />)}
+        {checkout&&( <Checkout updatecartarr={updatecartarr} setcheckout={setcheckout} cart_array={cart_array} />)}
         
         <Routes>
+          
           <Route exact path='/' element={<Itemgrid setarray={setarray} fetchData={fetchData} best_array={best_array} title={"Best sellers"} inc={inc} appendfn={appendfn} cart_array={cart_array} dec={dec} />} />
           <Route exact path='/products/:id' element={<Itempage userdata={userdata} fetchData={fetchData} best_array={best_array} appendfn={appendfn} setarray={setarray} cart_array={cart_array} />} />
-          <Route exact path='/login' element={<Login updatecartarr={updatecartarr} setLoggedin={setLoggedin} isLoggedin={isLoggedin} setuserdata={setuserdata} userdata={userdata} />}></Route>
+          <Route exact path='/login' element={<Login updatecartarr={updatecartarr} setLoggedin={setLoggedin} isLoggedin={isLoggedin} setuserdata={setuserdata} userdata={userdata} setToken={setToken}/>}></Route>
           <Route exact path='/signup' element={<Signup />}></Route>
-          <Route exact path='/admin/addproduct' element={<Productadd />}></Route>
-          <Route exact path='/admin/deleteproduct' element={<Productdelete />}></Route>
-          <Route exact path='/admin' element={<Adminpage best_array={best_array} cart_array={cart_array} setarray={setarray}/>}></Route>
+          <Route exact path='/admin/addproduct' element={<Productadd token={token} />}></Route>
+          <Route exact path='/admin/deleteproduct' element={<Productdelete token={token} />}></Route>
+          <Route exact path='/admin' element={<Adminpage token={token} setarray={setarray} best_array={best_array} />}></Route>
           
         </Routes>
 

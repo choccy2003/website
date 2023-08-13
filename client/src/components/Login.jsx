@@ -4,7 +4,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+import jwtDecode from 'jwt-decode';
 const Login = (props) => {
     const [formData, setFormData] = useState({
         password: '',
@@ -23,7 +23,7 @@ const Login = (props) => {
         axios
             .post('http://localhost:3001/users/login', formData)
             .then((response) => {
-                console.log('Logged in successfully:', response.data);
+                
                 if (response.data.msg === 'Login successful!') {
                     props.updatecartarr(response.data.data.cart)
                     props.setuserdata(response.data.data)
@@ -38,11 +38,25 @@ const Login = (props) => {
                         },
                     });
                 }
+                else if(response.data==="admin login"){
+
+                    axios.post('http://localhost:3001/admin/adminlogin',formData).then((response)=>{
+                        const token = response.data.token;
+                        props.setToken(token)
+                        console.log(token)
+                        navigate('/admin')
+                    })
+                }
+                
+                else{
+                    toast.error('Error logging in. Please enter details properly.');
+                }
+
 
             })
             .catch((error) => {
                 console.error('Error logging in:', error);
-                toast.error('Error logging in. Please try again.');
+                
             });
     };
 

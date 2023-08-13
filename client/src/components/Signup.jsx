@@ -26,18 +26,23 @@ const Signup = () => {
             .post('http://localhost:3001/users/signup', formData)
             .then((response) => {
                 console.log('Signed in successfully:', response.data);
-
-                toast.success('Signed in successfully!', {
+                if(response.data.msg==="Signup successful!"){
+                    toast.success('Signed in successfully!', {
                     onClose: () => {
                         setTimeout(() => {
                             navigate('/login');
                         }, 2000);
                     },
                 });
+                }
+                else{
+                    toast.error('Error signing up.');
+                }
+                
             })
             .catch((error) => {
                 console.error('Error signing up:', error);
-                toast.error('Error signing up. Please try again.');
+                
             });
     };
 
