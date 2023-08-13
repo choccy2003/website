@@ -86,7 +86,7 @@ const Itempage = (props) => {
 
     axios.post('http://localhost:3001/users/addtocart', cartData)
       .then(response => {
-        localStorage.setItem("token", response.data);
+        
         console.log('Cart updated:', response.data);
         // Handle success, show a toast, or update UI as needed
       })

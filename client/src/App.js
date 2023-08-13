@@ -14,6 +14,7 @@ import Productadd from "./components/Productadd";
 import Productdelete from "./components/Productdelete";
 import Adminpage from "./components/Adminpage.jsx";
 import Checkout from "./small components/Checkout";
+import axios from "axios";
 import { useNavigate } from 'react-router-dom';
 
 function App() {
@@ -191,6 +192,24 @@ else{
     setuserdata([])
     window.location.href = 'http://localhost:3000/';
   }
+  useEffect(() => {
+    const cartData = {
+      email: userdata.email,
+      password: userdata.password,
+      cart: cart_array
+    };
+
+    axios.post('http://localhost:3001/users/addtocart', cartData)
+      .then(response => {
+        
+        console.log('Cart updated:', response.data);
+        // Handle success, show a toast, or update UI as needed
+      })
+      .catch(error => {
+        console.error('Error updating cart:', error);
+        // Handle error, show a toast, or update UI as needed
+      });
+  }, [cart_array])
   const [token,setToken]=useState(null)
   return (
     <div>
