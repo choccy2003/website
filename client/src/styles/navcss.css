@@ -96,7 +96,7 @@ html {
     background: #FFFF;
     position: relative;
     left: 20px;
-    top: 5px
+    top: 3px
 }
 
 .search-btn:active {
@@ -127,7 +127,7 @@ html {
     border-radius: 100%;
     margin-left: -4px;
     margin-top: -4px;
-    opacity: 0.6;
+    opacity: 0.8;
 }
 
 .search-btn:hover {
@@ -430,14 +430,20 @@ input:focus {
 
 @media screen and (max-width: 860px) {
     .box {
-        visibility: hidden;
+        display: none;
     }
 
     .hidden-btn {
         display: block;
         margin-left: auto;
         background-color: transparent;
+        position: relative ;
+        bottom: 10px ;
     }
+    
+    
+    
+    
 
     .navbar-bottom {
         padding: 0;
@@ -479,5 +485,76 @@ input:focus {
     .cart-text {
         bottom: 1px
     }
-
+    .filter-search{
+        height: 18px !important;
+        width: 80px !important;
+        position: relative;
+        left: 50px;
+    }
+    .filter-search input{
+        height: 17px !important;
+        width: 65px !important;
+        font-size: 14px !important;
+        position: relative;
+        bottom: 3px;
+    }
+    .filter-search svg{
+        height: 15px;
+        width: 15px;
+        position: relative;
+        bottom: 5px;
+        
+    }
+    .filter-sort{
+        height: 10px !important;
+        width: 81px !important;
+        font-size: 14px !important;
+        overflow: visible !important;
+        margin-left: 0px !important;
+        position: relative;
+        left:50px !important;
+       
+    }
+    
+    .carousel img {
+        margin-top: 10px;
+        margin-left:-30px ;
+        height: 210px;
+        width: 140% !important;
+        
+    }
+    .cart-menu{
+        width: 415px;
+        left:0%;
+        overflow-x: hidden;
+    }
+    @keyframes cart {
+        0% {
+            left: calc(100%);
+        }
+    
+        100% {
+            left: calc(100% - 410px);
+        }
+    }
+    .cart-emote{
+        height: 20px;
+        width: fit-content;
+        font-size: 20px !important;
+    }
+    .cart-emote svg{
+        height: 70px !important;
+        width: 70px !important;
+        left: 170px !important;
+    }
+    .cart-card{
+        margin-left: 10px;
+        width: 95%;
+    }
+}
+.cart-emote{
+    font-size: 30px;
+}
+.filter-sort{
+    font-size: 18px; 
 }

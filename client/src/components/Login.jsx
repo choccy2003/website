@@ -61,7 +61,7 @@ const Login = (props) => {
     };
 
     return (
-        <div style={{ height: '100%', width: '100%', backgroundColor: 'white', position: 'absolute', zIndex: '9999', top: '0px', left: '0px' }}>
+        <div style={{ height: '120%', width: '100%', backgroundColor: 'white', position: 'absolute', zIndex: '9999', top: '0px', left: '0px' }}>
             <div>
                 <div style={{ fontSize: '44px', fontFamily: 'Arial, Helvetica, sans-serif', paddingTop: '10%', margin: 'auto', maxWidth: 'fit-content', fontWeight: 600 }}>
                     <span><Link to={'/'} style={{ textDecoration: 'none', color: 'black' }}>Website</Link></span>

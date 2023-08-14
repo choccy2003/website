@@ -16,6 +16,7 @@ import Adminpage from "./components/Adminpage.jsx";
 import Checkout from "./small components/Checkout";
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
+import Footer from "./components/Footer";
 
 function App() {
   var [best_array, setarray] = useState([])
@@ -148,16 +149,18 @@ function App() {
 
     return (
       <>
-
-        Subtotal: <div style={{ display: "inline-block", textAlign: "right", width: "75%" }}>{number.toLocaleString('en-in')}</div>
-        <br />
-        <span style={{ fontSize: "18px", opacity: "0.6" }}>
-          GST: <div style={{ display: "inline-block", textAlign: "right", width: "85%" }}>{number2.toLocaleString('en-in')}</div>
-        </span>
-        <br />
-        <span style={{ fontSize: "24px" }}>
-          Grand Total: <div style={{ display: "inline-block", textAlign: "right", width: "63%" }}>{number3.toLocaleString('en-in')}</div>
-        </span>
+        <div style={{ fontSize: "20px",display:"flex",justifyContent:"space-between",paddingRight:"20px" }}>
+          Subtotal: <div>{number.toLocaleString('en-in')}</div>
+        </div>
+        
+      
+        <div style={{ fontSize: "18px", opacity: "0.6",display:"flex",justifyContent:"space-between",paddingRight:"30px" }}>
+          GST: <div >{number2.toLocaleString('en-in')}</div>
+        </div>
+       
+        <div style={{ fontSize: "24px",display:"flex",justifyContent:"space-between",paddingRight:"20px" }}>
+          <div style={{width:"fit-content"}}>Grand Total:</div> <div >{number3.toLocaleString('en-in')}</div>
+        </div>
 
 
       </>
@@ -235,7 +238,7 @@ else{
           }
 
           {displaycart && (<div style={{ fontFamily: "Poppins", fontSize: "20px", marginLeft: "10px", marginTop: "30px" }}><div>{cartpricefn()}</div><div style={{ width: "fit-content", margin: "auto", marginTop: "40px" }}><button className="add-btn" style={{ fontSize: "24px", width: "300px", height: "45px" }}><div style={{ display: "inline", position: "relative", bottom: "5px" }} onClick={()=>{handleCheckout()}}>Proceed to checkout</div> <FiChevronsRight style={{ height: "30px", width: "30px", position: "relative", top: "2px" }} /> </button></div></div>)}
-          {!displaycart && (<div style={{ opacity: "0.5" }}><CiFaceFrown style={{ height: "100px", width: "100px", position: "relative", top: "120px", left: "200px" }} /><div style={{ position: "relative", top: "150px", left: "90px", fontSize: "30px", fontFamily: "Poppins" }}>Cart is currently empty</div></div>)}
+          {!displaycart && (<div className="cart-emote" style={{ opacity: "0.5" }}><CiFaceFrown style={{ height: "100px", width: "100px", position: "relative", top: "120px", left: "200px" }} /><div style={{ position: "relative", top: "150px", left: "90px", fontFamily: "Poppins" }}>Cart is currently empty</div></div>)}
 
 
         </div>
@@ -261,6 +264,7 @@ else{
           <Route exact path='/admin' element={<Adminpage token={token} setarray={setarray} best_array={best_array} />}></Route>
           
         </Routes>
+        <Footer/>
 
       </Router>
 

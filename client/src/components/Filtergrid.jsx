@@ -39,7 +39,7 @@ const Filtergrid = (props) => {
 
   return (
     <div style={{ display: "flex", height: "50px", gap: "20px" }}>
-      <div style={{ fontSize: "18px", fontWeight: "500", border: "2px solid rgba(0, 0, 0, 0.2)", borderRadius: "8px", userSelect: "none", backgroundColor: "#f5f5f5", padding: "8px", paddingTop: "6px", marginLeft: "auto", marginTop: "90px", height: "23px", width: "160px", display: "flex" }}>
+      <div className='filter-search' style={{ fontSize: "18px", fontWeight: "500", border: "2px solid rgba(0, 0, 0, 0.2)", borderRadius: "8px", userSelect: "none", backgroundColor: "#f5f5f5", padding: "8px", paddingTop: "6px", marginLeft: "auto", marginTop: "90px", height: "23px", width: "160px", display: "flex" }}>
         <div>
           <input placeholder='Search...' type='text' style={{ height: "18px", fontSize: "18px", width: "120px", backgroundColor: "#f5f5f5", border: "none" }} ></input>
         </div>
@@ -48,10 +48,10 @@ const Filtergrid = (props) => {
         </div>
 
       </div>
-      <div style={{ marginTop: "90px", marginRight: "65px" }}>
+      <div className='filter-sort' style={{ marginTop: "90px", marginRight: "65px" }}>
         <div>
           <div onClick={() => { filterbtn ? updatefilterbtn(false) : updatefilterbtn(true) }}>
-            <div style={{ fontSize: "18px", fontWeight: "500", border: "2px solid rgba(0, 0, 0, 0.2)", borderRadius: "8px", userSelect: "none", backgroundColor: "#f5f5f5", padding: "8px", paddingTop: "6px", position: "relative", zIndex: "1" }}>
+            <div style={{  fontWeight: "500", border: "2px solid rgba(0, 0, 0, 0.2)", borderRadius: "8px", userSelect: "none", backgroundColor: "#f5f5f5", padding: "8px", paddingTop: "6px", position: "relative", zIndex: "1" }}>
               {selectedOption}
               <FiChevronDown style={{ strokeWidth: "3px", position: "relative", top: "4px" }} />
             </div>
