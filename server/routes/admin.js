@@ -72,7 +72,35 @@ router.post('/deleteproduct', async (req, res, next) => {
     }
 
 })
+router.post('/updateproduct', async (req, res, next) => {
+    const token = req.headers.authorization.split(' ')[1];
+    try {
+        const decodedToken = jwt.verify(token, secretKey);
+        const { id } = req.body
+        const exs = await Product.findOne({ id }).exec()
+        if (exs) {
+            const { name, price, category } = req.body
+            let products = await Product.findOneAndUpdate({id},{ name, price, category });
+            res.json({
+                msg: "Updated successfully",
+                success: true,
+                data: products
+            })
+        }
+        else {
+            res.json({ msg: "No such product exists" })
+        }
 
+
+    }
+    catch (err) {
+        res.json({
+            msg: `Failure ${err}`,
+            success: false
+        })
+    }
+
+})
 router.get('/getorders', async (req, res, next) => {
     const token = req.headers.authorization.split(' ')[1];
    
@@ -81,6 +109,23 @@ router.get('/getorders', async (req, res, next) => {
         const decodedToken = jwt.verify(token, secretKey);
        const order=await Orders.find()
        res.json(order)
+    } catch (err) {
+        res.json({
+            msg: `Failure ${err}`,
+            success: false
+        });
+    }
+});
+router.post('/orderstate', async (req, res, next) => {
+    const token = req.headers.authorization.split(' ')[1];
+   
+        
+    try {
+        const decodedToken = jwt.verify(token, secretKey);
+        const { status } = req.body
+        const {_id}=req.body
+       const order=await Orders.findByIdAndUpdate({_id},{status}).exec()
+       res.json({status:order.status})
     } catch (err) {
         res.json({
             msg: `Failure ${err}`,

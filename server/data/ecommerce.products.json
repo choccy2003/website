@@ -11,7 +11,7 @@
   "category": "Clothing",
   "size": "Size",
   "image": [
-    "http://localhost:3001/images/tshirta1.png",
+    "http://192.168.1.6:3001/images/tshirta1.png",
     "http://localhost:3001/images/tshirta2.png",
     "http://localhost:3001/images/tshirta3.png"
   ]
@@ -103,7 +103,7 @@
   "image": [
     "http://localhost:3001/images/shoeb1.png",
     "http://localhost:3001/images/shoeb2.png",
-    "http://localhost:3001/images/shoeb2.png"
+    "http://localhost:3001/images/shoeb3.png"
   ]
 },
 {
@@ -151,7 +151,7 @@
   "quantity": 0,
   "rating": 2,
   "review": 56,
-  "id": 9,
+  "id": 8,
   "category": "Clothing",
   "size": "Size",
   "image": [

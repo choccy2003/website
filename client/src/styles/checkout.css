@@ -102,3 +102,12 @@
     border-color: #46760A; 
     background-color: #6A983C; 
   }
+
+  .login-btn:hover{
+    background-color: #46760A !important;
+    cursor:pointer;
+  }
+  .google-login-btn:hover{
+    background-color: rgb(153,37,37) !important;
+    cursor:pointer;
+  }

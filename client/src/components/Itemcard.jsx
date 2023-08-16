@@ -45,7 +45,7 @@ const Itemcard = (props) => {
       <div className='container'>
 
         <div className='card'>
-          <Link to={`/products/${props.best_array.id}`}>
+          <Link to={`/products/${props.best_array._id}`}>
             <div className='image'><img src={props.best_array.image[0]} style={{ height: "180x", width: "210px", marginTop: "10px" }} ></img></div>
           </Link>
           <div className='title'>{props.best_array.name}</div>
@@ -58,7 +58,7 @@ const Itemcard = (props) => {
             <div className='price'>₹{number.toLocaleString('en-IN')}</div>
             <div className='add-btn'>
               {showBuyButton && (
-                <Link to={`/products/${props.best_array.id}`}><div className='txt' /*onClick={handleBuyButtonClick}*/>Buy now</div></Link>
+                <Link to={`/products/${props.best_array._id}`}><div className='txt' /*onClick={handleBuyButtonClick}*/>Buy now</div></Link>
 
               )}
               <div className='btn-grid'>

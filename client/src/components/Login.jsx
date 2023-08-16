@@ -4,7 +4,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import jwtDecode from 'jwt-decode';
+import '../styles/checkout.css'
 const Login = (props) => {
     const [formData, setFormData] = useState({
         password: '',
@@ -96,9 +96,9 @@ const Login = (props) => {
                             <a style={{ color: 'black', fontSize: '13px', fontWeight: 500 }} href="#">Forgot password?</a>
                         </div>
                         <button
-                            style={{ width: '230px', marginLeft: '80px', borderRadius: '3px', height: '33px', backgroundColor: '#7ba550', border: 'none', color: 'white', fontSize: '16px', marginTop: "30px" }}
+                            style={{ width: '230px', marginLeft: '80px', borderRadius: '5px', height: '33px', backgroundColor: '#7ba550',border: "1px solid #46760A", color: 'white', fontSize: '16px', marginTop: "30px" }}
                             type="submit"
-                        >
+                    className='login-btn'>
                             Log in
                         </button>
                     </form>
@@ -107,9 +107,9 @@ const Login = (props) => {
                     </div>
                     <hr style={{ width: '260px', margin: 'auto', marginBottom: '20px' }} />
                     <button
-                        style={{ width: '230px', marginLeft: '80px', borderRadius: '3px', height: '33px', backgroundColor: '#bc1515', border: 'none', color: 'white', fontSize: '16px' }}
+                        style={{ width: '230px', marginLeft: '80px', borderRadius: '5px', height: '33px', backgroundColor: '#e3483b', border: '1px solid rgb(153, 37, 37)', color: 'white', fontSize: '16px' }}
                         type="button"
-                    >
+                    className='google-login-btn'>
                         Continue with Google
                     </button>
 

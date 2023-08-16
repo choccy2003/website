@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Navbar from "./components/Navbar";
-import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Routes, Link,useLocation } from 'react-router-dom'
 import Itemgrid from "./components/Itemgrid"
 import Itempage from "./components/Itempage"
 import './styles/navcss.css'
@@ -12,10 +12,10 @@ import Login from "./components/Login";
 import Signup from "./components/Signup"
 import Productadd from "./components/Productadd";
 import Productdelete from "./components/Productdelete";
+import Productupdate from "./components/Productupdate";
 import Adminpage from "./components/Adminpage.jsx";
 import Checkout from "./small components/Checkout";
 import axios from "axios";
-import { useNavigate } from 'react-router-dom';
 import Footer from "./components/Footer";
 
 function App() {
@@ -29,6 +29,15 @@ function App() {
       console.log('Error:', error);
     }
   };
+  function ScrollToTop() {
+    const { pathname } = useLocation();
+  
+    React.useEffect(() => {
+      window.scrollTo(0, 0);
+    }, [pathname]);
+  
+    return null;
+  }
 
   useEffect(() => {
     (async () => {
@@ -205,12 +214,10 @@ else{
     axios.post('http://localhost:3001/users/addtocart', cartData)
       .then(response => {
         
-        console.log('Cart updated:', response.data);
-        // Handle success, show a toast, or update UI as needed
       })
       .catch(error => {
         console.error('Error updating cart:', error);
-        // Handle error, show a toast, or update UI as needed
+
       });
   }, [cart_array])
   const [token,setToken]=useState(null)
@@ -221,7 +228,7 @@ else{
 
 
         <Navbar dispfn={dispfn} dispfn2={dispfn2} carttotal={carttotal} />
-
+        <ScrollToTop />
 
 
 
@@ -261,6 +268,7 @@ else{
           <Route exact path='/signup' element={<Signup />}></Route>
           <Route exact path='/admin/addproduct' element={<Productadd token={token} />}></Route>
           <Route exact path='/admin/deleteproduct' element={<Productdelete token={token} />}></Route>
+          <Route exact path='/admin/updateproduct' element={<Productupdate token={token} />}></Route>
           <Route exact path='/admin' element={<Adminpage token={token} setarray={setarray} best_array={best_array} />}></Route>
           
         </Routes>

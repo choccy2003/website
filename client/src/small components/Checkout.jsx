@@ -40,7 +40,7 @@ const Checkout = (props) => {
   };
 
   return (
-    <div style={{position:"absolute",height:"100%",width:"100%",backgroundColor:"rgb(0,0,0,0.5)",top:"0px",left:"0px",zIndex:"9999"}}>
+    <div style={{position:"absolute",height:"206%",width:"100%",backgroundColor:"rgb(0,0,0,0.5)",top:"0px",left:"0px",zIndex:"9999"}}>
         <div className="checkout-container" style={{paddingLeft:"60px",marginTop:"7%"}}>
       <h2 className="checkout-heading">Checkout <RxCross1  onClick={()=>{props.setcheckout(false)}} style={{marginLeft:"290px",position:"relative",bottom:"25px"}}/></h2>
       <form onSubmit={handleSubmit}>

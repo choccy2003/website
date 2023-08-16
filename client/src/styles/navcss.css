@@ -1,6 +1,7 @@
 html {
     scroll-behavior: smooth;
     overflow-x: hidden;
+    
 }
 
 .navbar {
@@ -325,6 +326,7 @@ background-color: #e4e4e4;
     left: calc(100% - 500px);
     position: absolute;
     overflow-y: scroll;
+    overflow-x: hidden;
 }
 
 .cart-menu::-webkit-scrollbar {

@@ -4,7 +4,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+import '../styles/checkout.css'
 const Signup = () => {
     const [formData, setFormData] = useState({
         username: '',
@@ -99,8 +99,8 @@ const Signup = () => {
                         </div>
                         <div style={{ marginTop: '30px' }}>
                             <button
-                                style={{ width: '230px', marginLeft: '80px', borderRadius: '3px', height: '33px', backgroundColor: '#7ba550', border: 'none', color: 'white', fontSize: '16px' }}
-                                type="submit"
+                                style={{ width: '230px', marginLeft: '80px', borderRadius: '5px', height: '33px', backgroundColor: '#7ba550', border: '1px solid #46760A', color: 'white', fontSize: '16px' }}
+                                type="submit" className='login-btn'
                             >
                                 Create your account
                             </button>

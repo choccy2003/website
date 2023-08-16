@@ -36,6 +36,8 @@
     width: 100%;
     flex-shrink: 0;
     display: inline;
+    max-height: 540px;
+    margin-bottom: 20px;
 }
 
 .info-grid {

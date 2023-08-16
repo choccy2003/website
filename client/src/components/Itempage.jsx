@@ -20,6 +20,24 @@ const Itempage = (props) => {
   const [activerev, updaterev] = useState(false);
   const [activeques, updateques] = useState(false);
   let { id } = useParams()
+  const [activeid,setid]=useState()
+  useEffect(() => {
+    const findIndexById = (element) => element._id === id;
+  
+    const findIndexAsync = async () => {
+      const foundIndex = await new Promise((resolve, reject) => {
+        const index = props.best_array.findIndex(findIndexById);
+        if (index !== -1) {
+          resolve(index);
+        } 
+      });
+  
+      setid(foundIndex);
+      
+    };
+  
+    findIndexAsync();
+  }, [id, props.best_array]);
 
   const dispfunc = () => {
     if (displaylist === true) {
@@ -40,11 +58,11 @@ const Itempage = (props) => {
     }
   }
   const udpsize = (e) => {
-    props.best_array[id].size = e.target.innerText;
+    props.best_array[activeid].size = e.target.innerText;
     updatedisplay(false)
   }
   const udpquan = (e) => {
-    props.best_array[id].quantity = e.target.innerText;
+    props.best_array[activeid].quantity = e.target.innerText;
     updateqlist(false)
 
   }
@@ -66,11 +84,10 @@ const Itempage = (props) => {
       updateremwish(false)
     }
   }
-  { console.log(props.cart_array) }
   const multifn = () => {
     btnstate()
-    if ((props.best_array[id].quantity > 0) && (props.best_array[id].size !== 'Size')) {
-      props.appendfn(props.best_array[id])
+    if ((props.best_array[activeid].quantity > 0) && (props.best_array[activeid].size !== 'Size')) {
+      props.appendfn(props.best_array[activeid])
 
     }
 
@@ -87,8 +104,7 @@ const Itempage = (props) => {
     axios.post('http://localhost:3001/users/addtocart', cartData)
       .then(response => {
         
-        console.log('Cart updated:', response.data);
-        // Handle success, show a toast, or update UI as needed
+        
       })
       .catch(error => {
         console.error('Error updating cart:', error);
@@ -120,29 +136,29 @@ const Itempage = (props) => {
     (async () => {
       await props.fetchData();
       setDataFetched(true);
-      console.log(props.best_array)
+      
     })();
   }, []);
 
   if (!dataFetched) {
 
-    return <div>Loading...</div>;
+    return <div style={{height:"10000px"}}>Loading...</div>;
   }
-  if (props.best_array.length >= id) {
+  if (props.best_array.length >= activeid) {
     return (
       <div>
         <div className='product-page'>
           <div className='img-grid'>
 
-            <div className='product-img'><img src={props.best_array[id].image[0]} style={{ width: "100%", height: "auto" }} alt='o'></img></div>
-            <div className='product-img' ><img src={props.best_array[id].image[1]} style={{ width: "100%", height: "auto" }} alt='o'></img></div>
-            <div className='product-img'><img src={props.best_array[id].image[2]} style={{ width: "100%", height: "auto" }} alt='o'></img></div>
+            <div className='product-img'><img src={props.best_array[activeid].image[0]} style={{ width: "100%", height: "auto" }} alt='o'></img></div>
+            <div className='product-img' ><img src={props.best_array[activeid].image[1]} style={{ width: "100%", height: "auto" }} alt='o'></img></div>
+            <div className='product-img'><img src={props.best_array[activeid].image[2]} style={{ width: "100%", height: "auto" }} alt='o'></img></div>
           </div>
           <div className='info-grid'>
 
             <div className='product-info'>
               <div className='prod-name'>
-                {props.best_array[id].name}
+                {props.best_array[activeid].name}
                 <span style={{ position: "relative", left: "15px", width: "20px" }} ><span style={{ display: "inline-block", height: "20px", userSelect: "none" }} onMouseEnter={() => updatewish(true)} onMouseLeave={() => updatewish(false)} onClick={wishfn} >{(!addwish && !wish) && (<FaRegHeart style={{ height: "20px", width: "20px" }} />)}{(addwish || wish) && (<svg width="20" height="20" viewBox="0 0 250 225" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M221.414 32.718C195.405 13.3295 156.725 16.817 132.853 38.3643L123.503 46.7923L114.154 38.3643C90.3289 16.817 51.6015 13.3295 25.5935 32.718C-4.21144 54.9712 -5.77762 94.9106 20.8949 119.032L112.73 201.983C118.663 207.339 128.297 207.339 134.229 201.983L226.065 119.032C252.785 94.9106 251.218 54.9712 221.414 32.718Z" fill="#D9001D" />
                   <path d="M223.828 16.2287C195.605 -8.17315 152.002 -4.50786 125 23.7601C97.998 -4.50786 54.3945 -8.22336 26.1719 16.2287C-10.5468 48.0113 -5.17572 99.8276 20.9961 127.292L106.641 217.017C111.523 222.138 118.066 225 125 225C131.982 225 138.477 222.188 143.359 217.067L229.004 127.342C255.127 99.8778 260.596 48.0615 223.828 16.2287ZM212.305 110.372L126.66 200.096C125.488 201.301 124.512 201.301 123.34 200.096L37.6953 110.372C19.8731 91.6936 16.2598 56.3461 41.2598 34.7058C60.2539 18.2873 89.5508 20.7475 107.91 39.9778L125 57.9026L142.09 39.9778C160.547 20.6471 189.844 18.2873 208.74 34.6556C233.691 56.2959 229.98 91.8443 212.305 110.372Z" fill="black" />
@@ -151,30 +167,30 @@ const Itempage = (props) => {
 
               </div>
               <div>
-                <Starrating rating={props.best_array[id].rating} starRatedColor={'#d3af37'} starDimension={"22px"} starSpacing={"0px"} />
-                <span className='rate'>{'('}{props.best_array[id].review} {'ratings)'}</span>
+                <Starrating rating={props.best_array[activeid].rating} starRatedColor={'#d3af37'} starDimension={"22px"} starSpacing={"0px"} />
+                <span className='rate'>{'('}{props.best_array[activeid].review} {'ratings)'}</span>
               </div>
               <div className='prod-des'>
                 Lorem ipsum dolor sit, amet consectetur adipisicing elit. Vitae in minus molestiae quas reiciendis quia, quis fugiat similique consequuntur repellat beatae delectus dignissimos natus dolores dolor nostrum! Id, unde obcaecati? Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum a libero, fuga earum, voluptates ab id exercitationem cupiditate quisquam adipisci assumenda tempore vero est modi. Facere consectetur quae modi unde.
               </div>
               <div className='prod-det'>
                 <ul className='list'>
-                  <li><span className='ques'>Category:</span><span className='ans er'>{props.best_array[id].category}</span></li>
+                  <li><span className='ques'>Category:</span><span className='ans er'>{props.best_array[activeid].category}</span></li>
                   <li><span className='ques'>Brand:</span><span className='ans er'>Brand name</span></li>
                   <li><span className='ques'>Stock:</span><span className='ans er'>In stock</span></li>
                 </ul>
                 <ul className='list'>
                   <li><span className='ques'>Delivery:</span><span className='ans'>3-5 Days</span></li>
                   <li><span className='ques'>Region:</span><span className='ans'>India</span></li>
-                  <li><span className='ques'>{"Sizes Available" + (props.best_array[id].category == 'Footwear' ? ("(US):") : (""))}</span>{props.best_array[id].category === 'Clothing' ? (<span className='ans'><span className='size'><span className='size-txt'>&nbsp;S</span></span><span className='size'><span className='size-txt'>M</span></span><span className='size'><span className='size-txt'>&nbsp;L</span></span><span className='size'><span className='size-txt'>XL</span></span><span className='size'>XXL</span></span>) : (<span className='ans' ><span className='size'><span className='size-txt'>&nbsp;7</span></span><span className='size'><span className='size-txt'>&nbsp;8</span></span><span className='size'><span className='size-txt'>&nbsp;9</span></span><span className='size'><span className='size-txt'>10</span></span><span className='size'>&nbsp;11</span></span>)}</li>
+                  <li><span className='ques'>{"Sizes Available" + (props.best_array[activeid].category == 'Footwear' ? ("(US):") : (""))}</span>{props.best_array[activeid].category === 'Clothing' ? (<span className='ans'><span className='size'><span className='size-txt'>&nbsp;S</span></span><span className='size'><span className='size-txt'>M</span></span><span className='size'><span className='size-txt'>&nbsp;L</span></span><span className='size'><span className='size-txt'>XL</span></span><span className='size'>XXL</span></span>) : (<span className='ans' ><span className='size'><span className='size-txt'>&nbsp;7</span></span><span className='size'><span className='size-txt'>&nbsp;8</span></span><span className='size'><span className='size-txt'>&nbsp;9</span></span><span className='size'><span className='size-txt'>10</span></span><span className='size'>&nbsp;11</span></span>)}</li>
                 </ul>
 
               </div>
               <div className='btn-grid2'>
-                <div className='prod-price'><span style={{ fontFamily: "sans-serif" }}>₹&nbsp;</span>{props.best_array[id].price.toLocaleString('en-IN')}</div>
+                <div className='prod-price'><span style={{ fontFamily: "sans-serif" }}>₹&nbsp;</span>{props.best_array[activeid].price.toLocaleString('en-IN')}</div>
                 <div className='sizebox'>
                   <div className='size-btn'>
-                    <div style={{ height: "20px", width: "26px", fontSize: "17px" }}>{props.best_array[id].size}</div>
+                    <div style={{ height: "20px", width: "26px", fontSize: "17px" }}>{props.best_array[activeid].size}</div>
                     <div className='dd-btn' onClick={dispfunc}><FiChevronDown /></div>
                   </div>
 
@@ -182,7 +198,7 @@ const Itempage = (props) => {
                 </div>
                 <div className='qbox'>
                   <div className='size-btn'>
-                    <input className='qtxt' type='text' placeholder={props.best_array[id].quantity}></input>
+                    <input className='qtxt' type='text' placeholder={props.best_array[activeid].quantity}></input>
                     <div style={{ display: "inline-block", opacity: "0.6" }}>pcs</div>
                     <div className='dd-btn' onClick={dispfunc2}><FiChevronDown /></div>
                   </div>
@@ -195,7 +211,7 @@ const Itempage = (props) => {
                 <div className='quan-list' onClick={(e) => udpquan(e)}><ol><li className='qitms' onClick={(e) => udpquan(e)}>1</li><li className='qitms' onClick={(e) => udpquan(e)}>2</li><li className='qitms' onClick={(e) => udpquan(e)}>3</li><li className='qitms' onClick={(e) => udpquan(e)}>4</li><li className='qitms' style={{ borderBottomLeftRadius: "10px", borderBottomRightRadius: "10px" }}>5</li></ol></div>
               )}
 
-              {displaylist && (props.best_array[id].category === 'Clothing' ? (<div className='size-list' onClick={(e) => udpsize(e)}><ol><li className='itms' onClick={(e) => udpsize(e)}>S</li><li className='itms' onClick={(e) => udpsize(e)}>M</li><li className='itms' onClick={(e) => udpsize(e)}>L</li><li className='itms' onClick={(e) => udpsize(e)}>XL</li><li className='itms' style={{ borderBottomLeftRadius: "10px", borderBottomRightRadius: "10px" }}>XXL</li></ol></div>) : (<div className='size-list' onClick={(e) => udpsize(e)}><ol><li className='itms' onClick={(e) => udpsize(e)}>7</li><li className='itms' onClick={(e) => udpsize(e)}>8</li><li className='itms' onClick={(e) => udpsize(e)}>9</li><li className='itms' onClick={(e) => udpsize(e)}>10</li><li className='itms' style={{ borderBottomLeftRadius: "10px", borderBottomRightRadius: "10px" }}>11</li></ol></div>))}
+              {displaylist && (props.best_array[activeid].category === 'Clothing' ? (<div className='size-list' onClick={(e) => udpsize(e)}><ol><li className='itms' onClick={(e) => udpsize(e)}>S</li><li className='itms' onClick={(e) => udpsize(e)}>M</li><li className='itms' onClick={(e) => udpsize(e)}>L</li><li className='itms' onClick={(e) => udpsize(e)}>XL</li><li className='itms' style={{ borderBottomLeftRadius: "10px", borderBottomRightRadius: "10px" }}>XXL</li></ol></div>) : (<div className='size-list' onClick={(e) => udpsize(e)}><ol><li className='itms' onClick={(e) => udpsize(e)}>7</li><li className='itms' onClick={(e) => udpsize(e)}>8</li><li className='itms' onClick={(e) => udpsize(e)}>9</li><li className='itms' onClick={(e) => udpsize(e)}>10</li><li className='itms' style={{ borderBottomLeftRadius: "10px", borderBottomRightRadius: "10px" }}>11</li></ol></div>))}
 
 
             </div>
@@ -207,7 +223,7 @@ const Itempage = (props) => {
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium nostrum nulla aspernatur modi reiciendis blanditiis ipsam id excepturi tenetur placeat molestiae, alias culpa fugiat aperiam eum laudantium exercitationem nesciunt. Aspernatur!
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cumque, a tenetur. Placeat reprehenderit minima sint repellendus fugit blanditiis dignissimos eius similique deleniti fugiat? Tempora fugit ab nisi libero quisquam eius? Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ab nam voluptas, fuga officiis vel tempora ipsa autem est incidunt. Modi quas voluptatem omnis quidem ducimus, laboriosam doloremque sapiente magni aperiam?
                 <div style={{ fontWeight: "600", fontSize: "20px", fontFamily: "Poppins", paddingBottom: "10px", paddingTop: "20px" }}>Our size chart</div>
-                {props.best_array[id].category === 'Clothing' ? (<table className='table' style={{fontSize:"20px"}}>
+                {props.best_array[activeid].category === 'Clothing' ? (<table className='table' style={{fontSize:"20px"}}>
                   <thead>
                     <tr>
                       <th>Category</th>
@@ -305,7 +321,7 @@ const Itempage = (props) => {
   }
   else {
     return (
-      <div>
+      <div style={{height:"720px"}}>
         <div>Product ID not found</div>
       </div>
     )
