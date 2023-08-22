@@ -4,6 +4,7 @@ const Product = require('../models/products')
 const Users = require('../models/users')
 const Orders = require('../models/orders')
 const jwt = require('jsonwebtoken');
+const usersecretKey = 'your-secret-key';
 router.get('/listproducts', async (req, res, next) => {
   try {
     let products = await Product.find().exec()
@@ -26,8 +27,8 @@ router.post('/login', async (req, res, next) => {
     if (user) {
       
     
-
-         res.send({ data: user, msg: "Login successful!" })
+      const usertoken = jwt.sign({ userId: user._id }, usersecretKey, { expiresIn: '60d' });
+      res.send({ data: user, usertoken: usertoken, msg: "Login successful!" });
       
     }
     
@@ -96,5 +97,28 @@ const order = await newOrder.save();
   }
 })
 
+router.post('/fetchuserdetails',async(req,res,next)=>{
+  try{
+    
+    const {usertoken}=req.body
+  
+  const decoded= jwt.decode(usertoken,usersecretKey)
+  const user = await Users.findById( decoded.userId).exec();
+  
+  if (user) {
+    
+  res.send({data:user})
+    
+    
+  }else{
+    res.send({msg:"not found"})
+  }}
+  
+  catch(err){
+    console.error(err);
+    res.send("notworking")
+  }
+
+})
 
 module.exports = router;

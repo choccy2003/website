@@ -200,6 +200,7 @@ else{
  } 
 
  const handleLogout=()=>{
+  localStorage.clear();
     setLoggedin(false)
     setuserdata([])
     window.location.href = 'http://localhost:3000/';
@@ -220,7 +221,31 @@ else{
 
       });
   }, [cart_array])
+
   const [token,setToken]=useState(null)
+  var state=localStorage.getItem('logged')
+  useEffect(()=>{
+    
+    var usertoken = String(localStorage.getItem('usertoken'));
+    const tokenData = {
+      usertoken:usertoken
+    };
+    if(state){
+     
+      console.log(usertoken)
+      axios.post('http://localhost:3001/users/fetchuserdetails', tokenData).then(response =>{
+        setuserdata(response.data.data);
+        updatecartarr(response.data.data.cart)
+
+        setLoggedin(true)
+        
+      }).catch(error => {
+        console.error('Error fecthng data:', error);
+
+      });
+    }
+
+  },[state])
   return (
     <div>
 

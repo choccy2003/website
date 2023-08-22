@@ -94,6 +94,7 @@ const Itempage = (props) => {
 
 
   }
+    
   useEffect(() => {
     const cartData = {
       email: props.userdata.email,

@@ -27,6 +27,8 @@ const Login = (props) => {
                 if (response.data.msg === 'Login successful!') {
                     props.updatecartarr(response.data.data.cart)
                     props.setuserdata(response.data.data)
+                    localStorage.setItem('usertoken',response.data.usertoken)
+                    localStorage.setItem('logged',true)
                     toast.success('Logged in successfully!', {
                         onClose: () => {
                             props.setLoggedin(true)
