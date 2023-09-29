@@ -40,7 +40,7 @@ app.use(function (req, res, next) {
 });
 const mongoose = require('mongoose');
 
-const connectionString = 'mongodb+srv://vabger:08102001vg@cluster0.mnjpw6v.mongodb.net/ecommerce?retryWrites=true&w=majority';
+const connectionString = 'url';
 
 mongoose.connect(connectionString, {
   useNewUrlParser: true,
