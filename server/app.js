@@ -38,10 +38,25 @@ app.use('/images', express.static('images'));
 app.use(function (req, res, next) {
   next(createError(404));
 });
-const mongoose = require('mongoose')
-mongoose.connect('mongodb://127.0.0.1:27017/ecommerce')
-  .then(() => console.log('Connected!'));
+const mongoose = require('mongoose');
 
+const connectionString = 'mongodb+srv://vabger:08102001vg@cluster0.mnjpw6v.mongodb.net/ecommerce?retryWrites=true&w=majority';
+
+mongoose.connect(connectionString, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  // Optionally, other mongoose options can be added here
+});
+
+const db = mongoose.connection;
+
+db.on('error', (error) => {
+  console.error('MongoDB connection error:', error);
+});
+
+db.once('open', () => {
+  console.log('Connected to MongoDB Atlas');
+});
 // error handler
 app.use(function (err, req, res, next) {
   // set locals, only providing error in development

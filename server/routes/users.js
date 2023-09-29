@@ -3,6 +3,7 @@ var router = express.Router();
 const Product = require('../models/products')
 const Users = require('../models/users')
 const Orders = require('../models/orders')
+const Review = require('../models/review')
 const jwt = require('jsonwebtoken');
 const usersecretKey = 'your-secret-key';
 router.get('/listproducts', async (req, res, next) => {
@@ -102,7 +103,7 @@ router.post('/fetchuserdetails',async(req,res,next)=>{
     
     const {usertoken}=req.body
   
-  const decoded= jwt.decode(usertoken,usersecretKey)
+  const decoded= jwt.verify(usertoken,usersecretKey)
   const user = await Users.findById( decoded.userId).exec();
   
   if (user) {
@@ -120,5 +121,43 @@ router.post('/fetchuserdetails',async(req,res,next)=>{
   }
 
 })
+
+router.post('/submitreview',async(req,res,next)=>{
+  try{
+    const {username,password,product_id}=req.body
+    const exist= await Users.findOne({username,password})
+    const existReview=await Review.findOne({username,password,product_id})
+    if(existReview){
+      res.send("already reviewed")
+    }
+    else if(exist){
+       const rev = await new Review(req.body).save()
+    if(rev){
+      res.send("review submitted")
+    }
+    else{
+      res.send("failure")
+    }
+    }
+    else{
+      res.send("validation error")
+    }
+   
+  }
+  catch(err){
+    res.send(err)
+  }
+})
+router.post('/getreview', async (req, res, next) => {
+  try {
+    const {product_id}=req.body
+    let reviews = await Review.find({product_id})
+    res.json(reviews)
+  }
+  catch (err) {
+    res.send( err)
+  }
+
+});
 
 module.exports = router;
