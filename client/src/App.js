@@ -152,7 +152,7 @@ function App() {
 
       }
       number = cartsum
-      number2 = cartsum * 0.12
+      number2 = cartsum * 0.120
       number3 = number + number2
     }
 
