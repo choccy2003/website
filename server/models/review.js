@@ -7,7 +7,8 @@ var review = new Schema(
     password: { type: String, required: true, },
     rating: { type: Number, required: true },
     review:{ type: String, required: true },
-    product_id:{type:String, required: true}
+    product_id:{type:String, required: true},
+    title:{type:String, required: true}
 
   }
 )

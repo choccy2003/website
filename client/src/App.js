@@ -288,7 +288,7 @@ else{
         <Routes>
           
           <Route exact path='/' element={<Itemgrid setarray={setarray} fetchData={fetchData} best_array={best_array} title={"Best sellers"} inc={inc} appendfn={appendfn} cart_array={cart_array} dec={dec} />} />
-          <Route exact path='/products/:id' element={<Itempage userdata={userdata} fetchData={fetchData} best_array={best_array} appendfn={appendfn} setarray={setarray} cart_array={cart_array} />} />
+          <Route exact path='/products/:id' element={<Itempage userdata={userdata} fetchData={fetchData} best_array={best_array} appendfn={appendfn} setarray={setarray} setuserdata={setuserdata} cart_array={cart_array} isLoggedin={isLoggedin} />} />
           <Route exact path='/login' element={<Login updatecartarr={updatecartarr} setLoggedin={setLoggedin} isLoggedin={isLoggedin} setuserdata={setuserdata} userdata={userdata} setToken={setToken}/>}></Route>
           <Route exact path='/signup' element={<Signup />}></Route>
           <Route exact path='/admin/addproduct' element={<Productadd token={token} />}></Route>

@@ -7,9 +7,20 @@ import { FaRegHeart, FaUserCircle } from 'react-icons/fa'
 import { GrFormAdd } from 'react-icons/gr'
 import Check from '../small components/Check'
 import axios from 'axios'
-
+import Reviewcard from '../small components/Reviewcard'
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Itempage = (props) => {
+  
+  
+  const [lines,setlines]=useState(1);
+  const [height,setheight]=useState(50)
+  const handleInput=(e)=>{
+    setlines(e.target.value.split('\n').length+1);
+    setheight(lines*25)  
+    handleFormInput(e)
+  }
   const [displaylist, updatedisplay] = useState(false);
   const [displayqlist, updateqlist] = useState(false);
   const [cartbtn, updatecartbtn] = useState(false);
@@ -21,6 +32,80 @@ const Itempage = (props) => {
   const [activeques, updateques] = useState(false);
   let { id } = useParams()
   const [activeid,setid]=useState()
+  const [current_rating,setcurrent_rating]=useState(0)
+  const [reviewdata,setreviewdata]=useState({
+    username:props.userdata.username,
+    password:props.userdata.password,
+    review:'',
+    rating:current_rating,
+    product_id:id,
+    title:''
+  })
+  
+  const handleFormInput=(e)=>{
+    const {name,value}=e.target
+    setreviewdata({...reviewdata,[name]:value})
+    
+  }
+  const handleReviewSubmit = async () => {
+    try {
+     axios.post('http://localhost:3001/users/submitreview',reviewdata)
+     .then(response=>{
+      if(response.data==='already reviewed'){
+        toast.error("Already submitted review!!")
+     }
+    else{
+      toast.success("Review submitted!!")
+    }})
+    .then(()=>{
+ setcurrent_rating(0)
+ document.getElementById('tbox').value=''
+ document.getElementById('tbox2').value=''
+    }
+ 
+   
+   
+    )
+    } catch (error) {
+      console.error('An error occurred during fetchDetails:', error);
+    }
+  };
+ useEffect(()=>{
+  try {
+    var usertoken = String(localStorage.getItem('usertoken'));
+    const tokenData = {
+      usertoken: usertoken
+    };
+
+axios.post('http://localhost:3001/users/fetchuserdetails', tokenData)
+ .then(response=>{
+  
+   setreviewdata({
+        ...reviewdata,
+        username: response.data.data.username,
+        password: response.data.data.password
+      }); 
+      
+ })
+
+
+    console.log("executed");
+  } catch (error) {
+    // Handle any errors here
+    console.error('An error occurred:', error);
+  }
+ },[])
+ const [review,setreview]=useState([])
+ const fetchReview=async ()=>{
+  
+  
+  axios.post('http://localhost:3001/users/getreview',{product_id:id})
+  .then((response)=>{
+    setreview(response.data)
+  })
+ }
+  
+
   useEffect(() => {
     const findIndexById = (element) => element._id === id;
   
@@ -38,7 +123,7 @@ const Itempage = (props) => {
   
     findIndexAsync();
   }, [id, props.best_array]);
-
+ 
   const dispfunc = () => {
     if (displaylist === true) {
       updatedisplay(false)
@@ -183,7 +268,7 @@ const Itempage = (props) => {
                 <ul className='list'>
                   <li><span className='ques'>Delivery:</span><span className='ans'>3-5 Days</span></li>
                   <li><span className='ques'>Region:</span><span className='ans'>India</span></li>
-                  <li><span className='ques'>{"Sizes Available" + (props.best_array[activeid].category == 'Footwear' ? ("(US):") : (""))}</span>{props.best_array[activeid].category === 'Clothing' ? (<span className='ans'><span className='size'><span className='size-txt'>&nbsp;S</span></span><span className='size'><span className='size-txt'>M</span></span><span className='size'><span className='size-txt'>&nbsp;L</span></span><span className='size'><span className='size-txt'>XL</span></span><span className='size'>XXL</span></span>) : (<span className='ans' ><span className='size'><span className='size-txt'>&nbsp;7</span></span><span className='size'><span className='size-txt'>&nbsp;8</span></span><span className='size'><span className='size-txt'>&nbsp;9</span></span><span className='size'><span className='size-txt'>10</span></span><span className='size'>&nbsp;11</span></span>)}</li>
+                  <li><span className='ques'>{"Sizes Available" + (props.best_array[activeid].category === 'Footwear' ? ("(US):") : (""))}</span>{props.best_array[activeid].category === 'Clothing' ? (<span className='ans'><span className='size'><span className='size-txt'>&nbsp;S</span></span><span className='size'><span className='size-txt'>M</span></span><span className='size'><span className='size-txt'>&nbsp;L</span></span><span className='size'><span className='size-txt'>XL</span></span><span className='size'>XXL</span></span>) : (<span className='ans' ><span className='size'><span className='size-txt'>&nbsp;7</span></span><span className='size'><span className='size-txt'>&nbsp;8</span></span><span className='size'><span className='size-txt'>&nbsp;9</span></span><span className='size'><span className='size-txt'>10</span></span><span className='size'>&nbsp;11</span></span>)}</li>
                 </ul>
 
               </div>
@@ -217,7 +302,7 @@ const Itempage = (props) => {
 
             </div>
 
-            <div className='pannel'><div className='pannel-itms' onClick={() => { updatedes(true); updaterev(false); updateques(false) }}>Description<br /><hr className={activedes ? 'line2' : 'inv'}></hr></div><div className='pannel-itms' onClick={() => { updatedes(false); updaterev(true); updateques(false) }}>Reviews<br /><hr className={activerev ? 'line2' : 'inv'} style={{ maxWidth: "75%" }}></hr></div><div className='pannel-itms' onClick={() => { updatedes(false); updaterev(false); updateques(true) }}>Questions<br /><hr className={activeques ? 'line2' : 'inv'} style={{ maxWidth: "90%" }}></hr></div></div>
+            <div className='pannel'><div className='pannel-itms' onClick={() => { updatedes(true); updaterev(false); updateques(false) }}>Description<br /><hr className={activedes ? 'line2' : 'inv'}></hr></div><div className='pannel-itms' onClick={() => { updatedes(false); updaterev(true); updateques(false); fetchReview() }}>Reviews<br /><hr className={activerev ? 'line2' : 'inv'} style={{ maxWidth: "75%" }}></hr></div><div className='pannel-itms' onClick={() => { updatedes(false); updaterev(false); updateques(true) }}>Questions<br /><hr className={activeques ? 'line2' : 'inv'} style={{ maxWidth: "90%" }}></hr></div></div>
             <div className='disbox'>
               {activedes && (<div>
                 <div style={{ fontWeight: "600", fontSize: "20px", fontFamily: "Poppins", paddingBottom: "10px", paddingTop: "10px" }}>Origin</div>
@@ -289,25 +374,28 @@ const Itempage = (props) => {
                 </table>)}
               </div>)}
               {activerev && (<div>
-                <div className='review-card'>
-                  <FaUserCircle style={{ height: "40px", width: "40px", fill: "grey" }}></FaUserCircle><span style={{ fontWeight: "500", position: "relative", left: "10px", bottom: "20px", fontSize: "17px" }}>User Name<div style={{ fontWeight: "500", fontSize: "12px", position: "relative", left: "40px", opacity: "0.6" }}>Verified purchase</div></span>
-                  <div style={{ position: "relative", left: "5px", bottom: "10px" }} ><Starrating rating={5} starRatedColor={'#d3af37'} starDimension={"20px"} starSpacing={"0px"} /><div style={{ fontWeight: "500", fontSize: "18px" }}>Review title</div><div>Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci, odit optio. Culpa architecto est minus molestias. Deleniti iste aliquam hic impedit omnis quos est exercitationem. Veniam quas voluptatem odit aut? Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit quia, quae id quaerat, rem esse ducimus amet dicta provident, debitis praesentium beatae unde! Odit cupiditate numquam aliquid, non asperiores provident!</div><hr style={{ marginTop: "30px", opacity: "0.6", borderRadius: "10px" }}></hr></div>
-
+                {props.isLoggedin&&(<div><h2>Write a review</h2>
+                <FaUserCircle style={{ height: "50px", width: "50px", fill: "grey",position:"relative",top:"5px" }}></FaUserCircle><span style={{ fontWeight: "500", position: "relative", left: "10px", bottom: "20px", fontSize: "20px"}}>{props.userdata.username}<div style={{ fontWeight: "500", fontSize: "16px", position: "relative", left: "50px", opacity: "0.6" }}>Verified purchase</div></span>
+                <Starrating rating={current_rating}
+      starDimension="30px"
+      starSpacing='0px'
+      starSelectingHoverColor="rgb(211, 175, 55)"
+      starRatedColor="rgb(211, 175, 55)"
+      changeRating={(newRating) => {
+        setcurrent_rating(newRating);
+        setreviewdata({...reviewdata,rating:newRating});
+      }}
+      numberOfStars={5}
+      isSelectable={true}></Starrating>
+                <div style={{border:"1px solid rgb(0,0,0,0.3)",borderRadius:"15px",padding:"20px",marginTop:"10px"}}><textarea onChange={handleFormInput} name='title' id='tbox2'  style={{border:"none",width:"90%",fontSize:"18px",resize:"none",overflow:"hidden",fontFamily: "Poppins",fontWeight:"lighter",height:`20px`}} type='text' placeholder='Write review title...'  ></textarea>
                 </div>
-                <div className='review-card'>
-                  <FaUserCircle style={{ height: "40px", width: "40px", fill: "grey" }}></FaUserCircle><span style={{ fontWeight: "500", position: "relative", left: "10px", bottom: "20px", fontSize: "17px" }}>User Name<div style={{ fontWeight: "500", fontSize: "12px", position: "relative", left: "40px", opacity: "0.6" }}>Verified purchase</div></span>
-                  <div style={{ position: "relative", left: "5px", bottom: "10px" }} ><Starrating rating={3} starRatedColor={'#d3af37'} starDimension={"20px"} starSpacing={"0px"} /><div style={{ fontWeight: "500", fontSize: "18px" }}>Review title</div><div>Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci, odit optio. Culpa architecto est minus molestias. Deleniti iste aliquam hic impedit omnis quos est exercitationem. Veniam quas voluptatem odit aut? Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit quia, quae id quaerat, rem esse ducimus amet dicta provident, debitis praesentium beatae unde! Odit cupiditate numquam aliquid, non asperiores provident!</div><hr style={{ marginTop: "30px", opacity: "0.6", borderRadius: "10px" }}></hr></div>
-
+                <div style={{border:"1px solid rgb(0,0,0,0.3)",borderRadius:"15px",padding:"20px",marginTop:"10px"}}><textarea name='review' onChange={handleInput} id='tbox' style={{border:"none",width:"90%",fontSize:"18px",resize:"none",overflow:"hidden",fontFamily: "Poppins",fontWeight:"lighter",height:`${height}px`}} type='text' placeholder='Write a review...'  ></textarea>
                 </div>
-                <div className='review-card'>
-                  <FaUserCircle style={{ height: "40px", width: "40px", fill: "grey" }}></FaUserCircle><span style={{ fontWeight: "500", position: "relative", left: "10px", bottom: "20px", fontSize: "17px" }}>User Name<div style={{ fontWeight: "500", fontSize: "12px", position: "relative", left: "40px", opacity: "0.6" }}>Verified purchase</div></span>
-                  <div style={{ position: "relative", left: "5px", bottom: "10px" }} ><Starrating rating={4} starRatedColor={'#d3af37'} starDimension={"20px"} starSpacing={"0px"} /><div style={{ fontWeight: "500", fontSize: "18px" }}>Review title</div><div>Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci, odit optio. Culpa architecto est minus molestias. Deleniti iste aliquam hic impedit omnis quos est exercitationem. Veniam quas voluptatem odit aut? Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit quia, quae id quaerat, rem esse ducimus amet dicta provident, debitis praesentium beatae unde! Odit cupiditate numquam aliquid, non asperiores provident!</div><hr style={{ marginTop: "30px", opacity: "0.6", borderRadius: "10px" }}></hr></div>
-
-                </div>
-              </div>)}
-
-
-
+                <div><button className='cart-btn' style={{width:"max-content",marginTop:"20px",marginBottom:"20px"}} onClick={handleReviewSubmit}>Submit Review</button></div>
+                <hr style={{ marginTop: "10px", opacity: "0.6", borderRadius: "10px",marginBottom:"20px" }}></hr></div>)}
+                {review.map((review,i)=>{return <Reviewcard key={i} review={review}/>})}<ToastContainer/></div>)}
+                
+                
             </div>
 
 

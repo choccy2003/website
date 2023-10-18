@@ -68,15 +68,13 @@ router.post('/addtocart', async (req, res, next) => {
       { email, password },
       { $set: { cart: cart } }
     ).exec();
-    console.log("Updated User:", user); // Log the updated user object for debugging
     if (user) {
-      console.log("Received Cart:", cart);
       res.send("Cart updated!");
     } else {
       res.send('no')
     }
   } catch (err) {
-    console.error("Cart update failed:", err);
+
     res.send("Cart update failed! " + err.message);
   }
 });
@@ -150,9 +148,9 @@ router.post('/submitreview',async(req,res,next)=>{
 })
 router.post('/getreview', async (req, res, next) => {
   try {
-    const {product_id}=req.body
+    const {product_id}=req.body;
     let reviews = await Review.find({product_id})
-    res.json(reviews)
+    res.send(reviews)
   }
   catch (err) {
     res.send( err)

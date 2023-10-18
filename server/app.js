@@ -40,7 +40,7 @@ app.use(function (req, res, next) {
 });
 const mongoose = require('mongoose');
 
-const connectionString = 'url';
+const connectionString = 'mongodb://127.0.0.1:27017/ecommerce';
 
 mongoose.connect(connectionString, {
   useNewUrlParser: true,
@@ -55,7 +55,7 @@ db.on('error', (error) => {
 });
 
 db.once('open', () => {
-  console.log('Connected to MongoDB Atlas');
+  console.log('Connected to MongoDB');
 });
 // error handler
 app.use(function (err, req, res, next) {
